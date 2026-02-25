@@ -1,0 +1,71 @@
+{
+  "extName": {
+    "message": "Fast Copy URL"
+  },
+  "extDescription": {
+    "message": "Copie a URL da aba atual para a área de transferência instantaneamente com Ctrl+Shift+C"
+  },
+  "toastMessage": {
+    "message": "Link Copiado!"
+  },
+  "popupTitle": {
+    "message": "Fast Copy URL"
+  },
+  "popupSubtitle": {
+    "message": "Copie URLs em um clique"
+  },
+  "popupUrlLabel": {
+    "message": "URL Atual"
+  },
+  "popupCopyBtn": {
+    "message": "Copiar URL"
+  },
+  "popupCopied": {
+    "message": "Copiado!"
+  },
+  "popupUrlUnavailable": {
+    "message": "URL não disponível"
+  },
+  "popupUrlError": {
+    "message": "Erro ao obter URL"
+  },
+  "popupLoading": {
+    "message": "Carregando..."
+  },
+  "shortcutHint": {
+    "message": "Atalho:"
+  },
+  "welcomeBadge": {
+    "message": "Instalação concluída"
+  },
+  "welcomeTitle": {
+    "message": "Obrigado por instalar o Fast Copy URL!"
+  },
+  "welcomeSubtitle": {
+    "message": "Copie a URL de qualquer aba instantaneamente com um simples atalho de teclado. Rápido, leve e sem complicações."
+  },
+  "welcomeDemoTitle": {
+    "message": "Veja como funciona"
+  },
+  "welcomeStep1Title": {
+    "message": "Navegue normalmente"
+  },
+  "welcomeStep1Desc": {
+    "message": "Acesse qualquer site ou página no Chrome como você já faz."
+  },
+  "welcomeStep2Title": {
+    "message": "Pressione o atalho"
+  },
+  "welcomeStep2Desc": {
+    "message": "Use Ctrl + Shift + C para copiar a URL."
+  },
+  "welcomeStep3Title": {
+    "message": "Pronto!"
+  },
+  "welcomeStep3Desc": {
+    "message": "A URL já está na sua área de transferência. Cole onde quiser."
+  },
+  "welcomeFooter": {
+    "message": "Feito com ♥ por Lucas Lourenço"
+  }
+}

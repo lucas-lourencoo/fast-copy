@@ -1,8 +1,18 @@
 document.addEventListener("DOMContentLoaded", async () => {
+  document.querySelectorAll("[data-i18n]").forEach((el) => {
+    const msg = chrome.i18n.getMessage(el.dataset.i18n);
+    if (msg) el.textContent = msg;
+  });
+
   const urlText = document.getElementById("currentUrl");
   const copyBtn = document.getElementById("copyBtn");
   const copyBtnText = document.getElementById("copyText");
   const copyIcon = document.getElementById("copyIcon");
+
+  const msgUnavailable = chrome.i18n.getMessage("popupUrlUnavailable");
+  const msgError = chrome.i18n.getMessage("popupUrlError");
+  const msgCopyBtn = chrome.i18n.getMessage("popupCopyBtn");
+  const msgCopied = chrome.i18n.getMessage("popupCopied");
 
   try {
     const [tab] = await chrome.tabs.query({
@@ -12,17 +22,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (tab?.url) {
       urlText.textContent = tab.url;
     } else {
-      urlText.textContent = "URL não disponível";
+      urlText.textContent = msgUnavailable;
     }
   } catch (err) {
-    urlText.textContent = "Erro ao obter URL";
+    urlText.textContent = msgError;
   }
 
   copyBtn.addEventListener("click", async () => {
     const url = urlText.textContent;
 
-    if (!url || url === "URL não disponível" || url === "Erro ao obter URL")
-      return;
+    if (!url || url === msgUnavailable || url === msgError) return;
 
     try {
       await navigator.clipboard.writeText(url);
@@ -42,12 +51,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   function showCopiedState() {
     copyBtn.classList.add("copied");
-    copyBtnText.textContent = "Copiado!";
+    copyBtnText.textContent = msgCopied;
     copyIcon.innerHTML = '<polyline points="20 6 9 17 4 12"></polyline>';
 
     setTimeout(() => {
       copyBtn.classList.remove("copied");
-      copyBtnText.textContent = "Copiar URL";
+      copyBtnText.textContent = msgCopyBtn;
       copyIcon.innerHTML = `
         <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
         <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
