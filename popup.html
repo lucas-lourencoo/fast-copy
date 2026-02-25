@@ -178,14 +178,16 @@
           </svg>
         </div>
         <div class="header-text">
-          <h1>Fast Copy URL</h1>
-          <p>Copie URLs em um clique</p>
+          <h1 data-i18n="popupTitle">Fast Copy URL</h1>
+          <p data-i18n="popupSubtitle">Copy URLs in one click</p>
         </div>
       </div>
 
       <div class="url-display">
-        <div class="url-label">URL Atual</div>
-        <div class="url-text" id="currentUrl">Carregando...</div>
+        <div class="url-label" data-i18n="popupUrlLabel">Current URL</div>
+        <div class="url-text" id="currentUrl" data-i18n="popupLoading">
+          Loading...
+        </div>
       </div>
 
       <button class="copy-btn" id="copyBtn">
@@ -203,11 +205,12 @@
             d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
           ></path>
         </svg>
-        <span id="copyText">Copiar URL</span>
+        <span id="copyText" data-i18n="popupCopyBtn">Copy URL</span>
       </button>
 
       <div class="shortcut-hint">
-        Atalho: <kbd>Ctrl</kbd> + <kbd>⇧</kbd> + <kbd>C</kbd>
+        <span data-i18n="shortcutHint">Shortcut:</span> <kbd>Ctrl</kbd> +
+        <kbd>⇧</kbd> + <kbd>C</kbd>
       </div>
     </div>
 

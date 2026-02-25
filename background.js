@@ -19,10 +19,12 @@ chrome.commands.onCommand.addListener(async (command) => {
         return;
       }
 
+      const toastMessage = chrome.i18n.getMessage("toastMessage");
+
       await chrome.scripting.executeScript({
         target: { tabId: tab.id },
         func: copyAndNotify,
-        args: [tab.url],
+        args: [tab.url, toastMessage],
       });
     } catch (error) {
       console.error("Fast Copy: Error copying URL:", error);
@@ -30,7 +32,7 @@ chrome.commands.onCommand.addListener(async (command) => {
   }
 });
 
-function copyAndNotify(url) {
+function copyAndNotify(url, toastMsg) {
   function showToast() {
     const existing = document.getElementById("fast-copy-toast");
     if (existing) existing.remove();
@@ -65,7 +67,7 @@ function copyAndNotify(url) {
           <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
           <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
         </svg>
-        Link Copiado!
+        ${toastMsg}
       </div>
     `;
 

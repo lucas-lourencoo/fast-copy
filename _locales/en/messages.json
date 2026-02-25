@@ -1,0 +1,71 @@
+{
+  "extName": {
+    "message": "Fast Copy URL"
+  },
+  "extDescription": {
+    "message": "Instantly copy the current tab's URL to clipboard with Ctrl+Shift+C"
+  },
+  "toastMessage": {
+    "message": "Link Copied!"
+  },
+  "popupTitle": {
+    "message": "Fast Copy URL"
+  },
+  "popupSubtitle": {
+    "message": "Copy URLs in one click"
+  },
+  "popupUrlLabel": {
+    "message": "Current URL"
+  },
+  "popupCopyBtn": {
+    "message": "Copy URL"
+  },
+  "popupCopied": {
+    "message": "Copied!"
+  },
+  "popupUrlUnavailable": {
+    "message": "URL not available"
+  },
+  "popupUrlError": {
+    "message": "Error getting URL"
+  },
+  "popupLoading": {
+    "message": "Loading..."
+  },
+  "shortcutHint": {
+    "message": "Shortcut:"
+  },
+  "welcomeBadge": {
+    "message": "Installation complete"
+  },
+  "welcomeTitle": {
+    "message": "Thanks for installing Fast Copy URL!"
+  },
+  "welcomeSubtitle": {
+    "message": "Instantly copy the URL of any tab with a simple keyboard shortcut. Fast, lightweight, and hassle-free."
+  },
+  "welcomeDemoTitle": {
+    "message": "See how it works"
+  },
+  "welcomeStep1Title": {
+    "message": "Browse normally"
+  },
+  "welcomeStep1Desc": {
+    "message": "Visit any website or page in Chrome as you normally would."
+  },
+  "welcomeStep2Title": {
+    "message": "Press the shortcut"
+  },
+  "welcomeStep2Desc": {
+    "message": "Use Ctrl + Shift + C to copy the URL."
+  },
+  "welcomeStep3Title": {
+    "message": "Done!"
+  },
+  "welcomeStep3Desc": {
+    "message": "The URL is now in your clipboard. Paste it anywhere you like."
+  },
+  "welcomeFooter": {
+    "message": "Made with ♥ by Lucas Lourenço"
+  }
+}

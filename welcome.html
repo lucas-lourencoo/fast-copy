@@ -437,18 +437,18 @@
         >
           <polyline points="20 6 9 17 4 12"></polyline>
         </svg>
-        Instalação concluída
+        <span data-i18n="welcomeBadge">Installation complete</span>
       </div>
 
-      <h1>Obrigado por instalar o Fast Copy URL!</h1>
-      <p class="subtitle">
-        Copie a URL de qualquer aba instantaneamente com um simples atalho de
-        teclado. Rápido, leve e sem complicações.
+      <h1 data-i18n="welcomeTitle">Thanks for installing Fast Copy URL!</h1>
+      <p class="subtitle" data-i18n="welcomeSubtitle">
+        Instantly copy the URL of any tab with a simple keyboard shortcut. Fast,
+        lightweight, and hassle-free.
       </p>
     </section>
 
     <section class="demo-section">
-      <h2>Veja como funciona</h2>
+      <h2 data-i18n="welcomeDemoTitle">See how it works</h2>
 
       <div class="browser-mockup">
         <div class="browser-toolbar">
@@ -488,7 +488,7 @@
                 d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"
               ></path>
             </svg>
-            Link Copiado!
+            <span data-i18n="toastMessage">Link Copied!</span>
           </div>
 
           <div class="shortcut-keys">
@@ -506,27 +506,38 @@
       <div class="steps-grid">
         <div class="step-card">
           <div class="step-number">1</div>
-          <h3>Navegue normalmente</h3>
-          <p>Acesse qualquer site ou página no Chrome como você já faz.</p>
+          <h3 data-i18n="welcomeStep1Title">Browse normally</h3>
+          <p data-i18n="welcomeStep1Desc">
+            Visit any website or page in Chrome as you normally would.
+          </p>
         </div>
         <div class="step-card">
           <div class="step-number">2</div>
-          <h3>Pressione o atalho</h3>
-          <p>
-            Use <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>C</kbd> para copiar a
-            URL.
+          <h3 data-i18n="welcomeStep2Title">Press the shortcut</h3>
+          <p data-i18n="welcomeStep2Desc">
+            Use Ctrl + Shift + C to copy the URL.
           </p>
         </div>
         <div class="step-card">
           <div class="step-number">3</div>
-          <h3>Pronto!</h3>
-          <p>A URL já está na sua área de transferência. Cole onde quiser.</p>
+          <h3 data-i18n="welcomeStep3Title">Done!</h3>
+          <p data-i18n="welcomeStep3Desc">
+            The URL is now in your clipboard. Paste it anywhere you like.
+          </p>
         </div>
       </div>
     </section>
 
     <footer class="footer">
-      Fast Copy URL v1.0 — Feito com ♥ por Lucas Lourenço
+      Fast Copy URL v1.0 —
+      <span data-i18n="welcomeFooter">Made with ♥ by Lucas Lourenço</span>
     </footer>
+
+    <script>
+      document.querySelectorAll("[data-i18n]").forEach((el) => {
+        const msg = chrome.i18n.getMessage(el.dataset.i18n);
+        if (msg) el.textContent = msg;
+      });
+    </script>
   </body>
 </html>
