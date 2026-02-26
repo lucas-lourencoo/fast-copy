@@ -155,6 +155,22 @@
         font-size: 10px;
         color: #8b8ba3;
       }
+
+      .change-shortcut-link {
+        display: block;
+        text-align: center;
+        margin-top: 12px;
+        font-size: 14px;
+        color: #667eea;
+        text-decoration: none;
+        cursor: pointer;
+        transition: color 0.2s ease;
+      }
+
+      .change-shortcut-link:hover {
+        color: #889cf0;
+        text-decoration: underline;
+      }
     </style>
   </head>
   <body>
@@ -208,9 +224,18 @@
         <span id="copyText" data-i18n="popupCopyBtn">Copy URL</span>
       </button>
 
+      <a
+        class="change-shortcut-link"
+        id="changeShortcutBtn"
+        data-i18n="changeShortcut"
+        >Change shortcut</a
+      >
+
       <div class="shortcut-hint">
-        <span data-i18n="shortcutHint">Shortcut:</span> <kbd>Ctrl</kbd> +
-        <kbd>⇧</kbd> + <kbd>C</kbd>
+        <span data-i18n="shortcutHint">Shortcut:</span>
+        <span id="shortcutDisplay">
+          <kbd>Ctrl</kbd> + <kbd>⇧</kbd> + <kbd>C</kbd>
+        </span>
       </div>
     </div>
 

@@ -57,7 +57,7 @@
     "message": "Press the shortcut"
   },
   "welcomeStep2Desc": {
-    "message": "Use Ctrl + Shift + C to copy the URL."
+    "message": "Use the extension shortcut to copy the URL."
   },
   "welcomeStep3Title": {
     "message": "Done!"
@@ -67,5 +67,8 @@
   },
   "welcomeFooter": {
     "message": "Made with ♥ by Lucas Lourenço"
+  },
+  "changeShortcut": {
+    "message": "Change shortcut"
   }
 }

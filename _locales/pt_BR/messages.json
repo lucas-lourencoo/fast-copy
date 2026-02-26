@@ -57,7 +57,7 @@
     "message": "Pressione o atalho"
   },
   "welcomeStep2Desc": {
-    "message": "Use Ctrl + Shift + C para copiar a URL."
+    "message": "Use o atalho da extensão para copiar a URL."
   },
   "welcomeStep3Title": {
     "message": "Pronto!"
@@ -67,5 +67,8 @@
   },
   "welcomeFooter": {
     "message": "Feito com ♥ por Lucas Lourenço"
+  },
+  "changeShortcut": {
+    "message": "Alterar atalho"
   }
 }
