@@ -404,6 +404,26 @@
           padding: 0 10px;
         }
       }
+
+      .change-shortcut-link-welcome {
+        display: inline-block;
+        margin-top: 24px;
+        padding: 8px 16px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        font-size: 13px;
+        color: #a8a8c0;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .change-shortcut-link-welcome:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+        border-color: rgba(102, 126, 234, 0.3);
+      }
     </style>
   </head>
   <body>
@@ -491,7 +511,7 @@
             <span data-i18n="toastMessage">Link Copied!</span>
           </div>
 
-          <div class="shortcut-keys">
+          <div class="shortcut-keys" id="demoShortcutKeys">
             <span class="key">Ctrl</span>
             <span class="key-plus">+</span>
             <span class="key">Shift</span>
@@ -499,6 +519,15 @@
             <span class="key">C</span>
           </div>
         </div>
+      </div>
+
+      <div style="text-align: center">
+        <a
+          class="change-shortcut-link-welcome"
+          id="changeShortcutWelcomeBtn"
+          data-i18n="changeShortcut"
+          >Change shortcut</a
+        >
       </div>
     </section>
 

@@ -14,6 +14,35 @@ document.addEventListener("DOMContentLoaded", async () => {
   const msgCopyBtn = chrome.i18n.getMessage("popupCopyBtn");
   const msgCopied = chrome.i18n.getMessage("popupCopied");
 
+  const shortcutDisplay = document.getElementById("shortcutDisplay");
+  const changeShortcutBtn = document.getElementById("changeShortcutBtn");
+
+  // Fetch actual shortcut
+  if (chrome.commands && chrome.commands.getAll) {
+    chrome.commands.getAll((commands) => {
+      const copyCommand = commands.find((c) => c.name === "copy-url");
+      if (copyCommand && copyCommand.shortcut) {
+        // Format the shortcut string to use <kbd> tags
+        const keys = copyCommand.shortcut.split("+");
+        const formattedKeys = keys.map((key) => {
+          // Replace common key names with symbols/nicer text if desired
+          let displayKey = key.trim();
+          if (displayKey.toLowerCase() === "shift") {
+            displayKey = "⇧";
+          }
+          return `<kbd>${displayKey}</kbd>`;
+        });
+        shortcutDisplay.innerHTML = formattedKeys.join(" + ");
+      }
+    });
+  }
+
+  if (changeShortcutBtn) {
+    changeShortcutBtn.addEventListener("click", () => {
+      chrome.tabs.create({ url: "chrome://extensions/shortcuts" });
+    });
+  }
+
   try {
     const [tab] = await chrome.tabs.query({
       active: true,
