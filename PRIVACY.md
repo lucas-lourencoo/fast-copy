@@ -15,7 +15,6 @@ To function, Fast Copy requests the following permissions, which are strictly us
 * **ActiveTab & Scripting:** Used exclusively to temporarily access the URL of the tab you are currently viewing when you trigger the copy action (via shortcut or popup). This URL is never saved or transmitted elsewhere.
 * **ClipboardWrite:** Used exclusively to place the copied URL into your system's clipboard.
 * **Storage:** Used to save your local UI preferences (such as your chosen theme color) directly on your device. This data is not synced to the cloud.
-* **Host Permission (`<all_urls>`):** The content script requires this to intercept the native developer tools shortcut (`Ctrl+Shift+C` / `Cmd+Shift+C`) on any webpage to route it to the Fast Copy action instead. We do not monitor or interfere with the web pages you visit.
 
 ## 3. Changes to This Policy
 If there are any functional changes to how Fast Copy operates that require changes to this Privacy Policy, this page will be updated to reflect them.
@@ -42,7 +41,6 @@ Para funcionar, o Fast Copy solicita as seguintes permissões, utilizadas estrit
 * **ActiveTab & Scripting:** Usadas exclusivamente para acessar temporariamente a URL da aba que você está visualizando no momento em que você aciona a ação de cópia (via atalho ou popup). Essa URL nunca é salva ou transmitida.
 * **ClipboardWrite:** Usada exclusivamente para inserir a URL copiada na área de transferência (clipboard) do seu sistema.
 * **Storage:** Usada para salvar suas preferências de interface (como a cor de tema selecionada) localmente no seu dispositivo. Esses dados não vão para a nuvem.
-* **Permissão de Host (`<all_urls>`):** O content script exige essa permissão para interceptar o atalho nativo do inspecionar elemento (`Ctrl+Shift+C` / `Cmd+Shift+C`) em qualquer página e acionar o Fast Copy no lugar. Não monitoramos nem interferimos nas páginas que você visita.
 
 ## 3. Alterações nesta Política
 Caso haja mudanças funcionais em como o Fast Copy opera que afetem esta Política de Privacidade, esta página será atualizada.
