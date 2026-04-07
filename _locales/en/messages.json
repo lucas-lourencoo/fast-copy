@@ -73,5 +73,17 @@
   },
   "popupThemeLabel": {
     "message": "Theme color"
+  },
+  "donateSectionTitle": {
+    "message": "Support the project"
+  },
+  "donateCta": {
+    "message": "Enjoying Fast Copy URL?"
+  },
+  "donateDesc": {
+    "message": "This extension is free and open-source. If it saves you time every day, consider buying me a coffee!"
+  },
+  "donateBtn": {
+    "message": "Buy me a coffee ☕"
   }
 }

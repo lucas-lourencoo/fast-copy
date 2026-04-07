@@ -43,7 +43,6 @@
         --kbd-border: rgba(0, 0, 0, 0.1);
         --kbd-text: #5a5a7a;
         --hint-text: #8b8ba3;
-        --swatch-border: rgba(0, 0, 0, 0.15);
         background: linear-gradient(145deg, var(--bg-gradient-1), var(--bg-gradient-2), var(--bg-gradient-3));
         color: var(--text-primary);
       }
@@ -64,7 +63,6 @@
         --kbd-border: rgba(255, 255, 255, 0.12);
         --kbd-text: #8b8ba3;
         --hint-text: #5a5a7a;
-        --swatch-border: rgba(255, 255, 255, 0.2);
         background: linear-gradient(145deg, var(--bg-gradient-1), var(--bg-gradient-2), var(--bg-gradient-3));
         color: var(--text-primary);
       }
@@ -189,96 +187,56 @@
         transition: all 0.2s ease;
       }
 
-      /* ── Theme picker ── */
-      .theme-section {
-        margin-top: 18px;
-        padding-top: 16px;
+
+      /* ── Donate button ── */
+      .donate-section {
+        margin-top: 14px;
+        padding-top: 14px;
         border-top: 1px solid var(--card-border);
       }
 
-      .theme-label {
-        font-size: 10px;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        color: var(--hint-text);
+      .donate-btn {
+        width: 100%;
+        padding: 10px 14px;
+        border: 1px solid rgba(255, 189, 46, 0.3);
+        border-radius: 10px;
+        background: rgba(255, 189, 46, 0.08);
+        color: #c8900a;
+        font-size: 13px;
         font-weight: 600;
-        margin-bottom: 10px;
-      }
-
-      .color-swatches {
-        display: flex;
-        gap: 8px;
-        flex-wrap: wrap;
-        align-items: center;
-      }
-
-      .color-swatch {
-        width: 24px;
-        height: 24px;
-        border-radius: 50%;
-        border: 2px solid var(--swatch-border);
         cursor: pointer;
-        transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
-        position: relative;
-      }
-
-      .color-swatch:hover {
-        transform: scale(1.15);
-      }
-
-      .color-swatch.active {
-        border-color: var(--text-heading);
-        box-shadow: 0 0 0 2px var(--accent-shadow);
-        transform: scale(1.1);
-      }
-
-      .color-swatch.active::after {
-        content: "";
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 8px;
-        height: 8px;
-        background: white;
-        border-radius: 50%;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-      }
-
-      .color-custom {
-        width: 24px;
-        height: 24px;
-        border-radius: 50%;
-        border: 2px dashed var(--swatch-border);
-        cursor: pointer;
-        position: relative;
-        overflow: hidden;
-        transition: transform 0.15s ease, border-color 0.15s ease;
+        transition: all 0.2s ease;
         display: flex;
         align-items: center;
         justify-content: center;
+        gap: 7px;
+        text-decoration: none;
+        letter-spacing: 0.1px;
       }
 
-      .color-custom:hover {
-        transform: scale(1.15);
-        border-color: var(--hint-text);
+      body.theme-dark .donate-btn {
+        color: #f5c842;
+        border-color: rgba(245, 200, 66, 0.25);
+        background: rgba(245, 200, 66, 0.07);
       }
 
-      .color-custom svg {
-        width: 12px;
-        height: 12px;
-        color: var(--hint-text);
-        pointer-events: none;
+      .donate-btn:hover {
+        background: rgba(255, 189, 46, 0.16);
+        border-color: rgba(255, 189, 46, 0.5);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 14px rgba(255, 189, 46, 0.15);
       }
 
-      .color-custom input[type="color"] {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-        cursor: pointer;
-        border: none;
-        padding: 0;
+      body.theme-dark .donate-btn:hover {
+        background: rgba(245, 200, 66, 0.14);
+        border-color: rgba(245, 200, 66, 0.4);
+        box-shadow: 0 4px 14px rgba(245, 200, 66, 0.12);
+      }
+
+      .donate-btn svg {
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
       }
 
       /* ── Shortcut / links ── */
@@ -368,12 +326,21 @@
         <span id="copyText" data-i18n="popupCopyBtn">Copy URL</span>
       </button>
 
-      <!-- Theme color picker -->
-      <div class="theme-section">
-        <div class="theme-label" data-i18n="popupThemeLabel">Theme color</div>
-        <div class="color-swatches" id="colorSwatches">
-          <!-- Swatches injected by popup.js -->
-        </div>
+      <!-- Donate -->
+      <div class="donate-section">
+        <a
+          class="donate-btn"
+          id="donateBtn"
+          href="https://ko-fi.com/lucaslourencoo"
+          target="_blank"
+          rel="noopener noreferrer"
+          data-i18n="donateBtn"
+        >
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402C1 3.763 4.068 2 6.5 2c1.868 0 3.535.912 4.5 2.316C12 2.91 13.668 2 15.5 2 17.932 2 21 3.762 21 7.191c0 4.105-5.37 8.863-11 14.402z"/>
+          </svg>
+          Buy me a coffee ☕
+        </a>
       </div>
 
       <a

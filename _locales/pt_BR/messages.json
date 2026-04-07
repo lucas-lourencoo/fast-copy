@@ -73,5 +73,17 @@
   },
   "popupThemeLabel": {
     "message": "Cor do tema"
+  },
+  "donateSectionTitle": {
+    "message": "Apoie o projeto"
+  },
+  "donateCta": {
+    "message": "Curtindo o Fast Copy URL?"
+  },
+  "donateDesc": {
+    "message": "Esta extensão é gratuita e de código aberto. Se ela economiza seu tempo todo dia, considere me pagar um café!"
+  },
+  "donateBtn": {
+    "message": "Pagar um café ☕"
   }
 }

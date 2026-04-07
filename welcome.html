@@ -424,6 +424,90 @@
         color: #fff;
         border-color: rgba(102, 126, 234, 0.3);
       }
+
+      /* ── Donate section ── */
+      .donate-section-welcome {
+        width: 100%;
+        max-width: 480px;
+        margin: 0 auto 64px;
+        padding: 0 24px;
+        text-align: center;
+      }
+
+      .donate-heading {
+        font-size: 13px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: #44445a;
+        margin-bottom: 20px;
+      }
+
+      .donate-card {
+        background: rgba(255, 189, 46, 0.06);
+        border: 1px solid rgba(255, 189, 46, 0.18);
+        border-radius: 18px;
+        padding: 28px 32px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        transition: all 0.25s ease;
+      }
+
+      .donate-card:hover {
+        background: rgba(255, 189, 46, 0.1);
+        border-color: rgba(255, 189, 46, 0.3);
+        transform: translateY(-2px);
+        box-shadow: 0 16px 48px rgba(255, 189, 46, 0.1);
+      }
+
+      .donate-emoji {
+        font-size: 40px;
+        line-height: 1;
+        animation: float 3s ease-in-out infinite;
+      }
+
+      .donate-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: #f0d060;
+        letter-spacing: -0.3px;
+      }
+
+      .donate-desc {
+        font-size: 14px;
+        color: #6a6a82;
+        line-height: 1.6;
+        max-width: 340px;
+      }
+
+      .donate-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 28px;
+        background: linear-gradient(135deg, #f0c030 0%, #e8a010 100%);
+        color: #1a0f00;
+        font-size: 15px;
+        font-weight: 700;
+        border-radius: 50px;
+        text-decoration: none;
+        transition: all 0.2s ease;
+        box-shadow: 0 4px 20px rgba(240, 192, 48, 0.3);
+        letter-spacing: 0.2px;
+      }
+
+      .donate-link:hover {
+        transform: translateY(-2px) scale(1.03);
+        box-shadow: 0 8px 32px rgba(240, 192, 48, 0.45);
+      }
+
+      .donate-link svg {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+      }
     </style>
   </head>
   <body>
@@ -554,6 +638,31 @@
             The URL is now in your clipboard. Paste it anywhere you like.
           </p>
         </div>
+      </div>
+    </section>
+
+    <!-- Donate -->
+    <section class="donate-section-welcome">
+      <p class="donate-heading" data-i18n="donateSectionTitle">Support the project</p>
+      <div class="donate-card">
+        <div class="donate-emoji">☕</div>
+        <div class="donate-title" data-i18n="donateCta">Enjoying Fast Copy URL?</div>
+        <p class="donate-desc" data-i18n="donateDesc">
+          This extension is free and open-source. If it saves you time every
+          day, consider buying me a coffee!
+        </p>
+        <a
+          class="donate-link"
+          href="https://ko-fi.com/lucaslourencoo"
+          target="_blank"
+          rel="noopener noreferrer"
+          data-i18n="donateBtn"
+        >
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402C1 3.763 4.068 2 6.5 2c1.868 0 3.535.912 4.5 2.316C12 2.91 13.668 2 15.5 2 17.932 2 21 3.762 21 7.191c0 4.105-5.37 8.863-11 14.402z"/>
+          </svg>
+          Buy me a coffee
+        </a>
       </div>
     </section>
 
