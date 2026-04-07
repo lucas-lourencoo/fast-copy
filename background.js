@@ -6,13 +6,11 @@ chrome.runtime.onInstalled.addListener((details) => {
   }
 });
 
-// Handle messages from content script (shortcut interceptor)
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === "copy-url") {
     handleCopyUrl(sender.tab);
   }
 });
-
 
 chrome.commands.onCommand.addListener(async (command) => {
   if (command === "copy-url") {

@@ -13,9 +13,8 @@ document.addEventListener(
       e.stopPropagation();
       e.stopImmediatePropagation();
 
-      // Send message to background script to handle the copy
       chrome.runtime.sendMessage({ action: "copy-url" });
     }
   },
-  true // capture phase to intercept before anything else
+  true,
 );
