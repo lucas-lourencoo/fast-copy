@@ -6,31 +6,42 @@ chrome.runtime.onInstalled.addListener((details) => {
   }
 });
 
-chrome.commands.onCommand.addListener(async (command) => {
-  if (command === "copy-url") {
-    try {
-      const [tab] = await chrome.tabs.query({
-        active: true,
-        currentWindow: true,
-      });
-
-      if (!tab?.url) {
-        console.warn("Fast Copy: No active tab or URL found.");
-        return;
-      }
-
-      const toastMessage = chrome.i18n.getMessage("toastMessage");
-
-      await chrome.scripting.executeScript({
-        target: { tabId: tab.id },
-        func: copyAndNotify,
-        args: [tab.url, toastMessage],
-      });
-    } catch (error) {
-      console.error("Fast Copy: Error copying URL:", error);
-    }
+// Handle messages from content script (shortcut interceptor)
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.action === "copy-url") {
+    handleCopyUrl(sender.tab);
   }
 });
+
+
+chrome.commands.onCommand.addListener(async (command) => {
+  if (command === "copy-url") {
+    const [tab] = await chrome.tabs.query({
+      active: true,
+      currentWindow: true,
+    });
+    await handleCopyUrl(tab);
+  }
+});
+
+async function handleCopyUrl(tab) {
+  try {
+    if (!tab?.url) {
+      console.warn("Fast Copy: No active tab or URL found.");
+      return;
+    }
+
+    const toastMessage = chrome.i18n.getMessage("toastMessage");
+
+    await chrome.scripting.executeScript({
+      target: { tabId: tab.id },
+      func: copyAndNotify,
+      args: [tab.url, toastMessage],
+    });
+  } catch (error) {
+    console.error("Fast Copy: Error copying URL:", error);
+  }
+}
 
 function copyAndNotify(url, toastMsg) {
   function showToast() {

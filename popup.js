@@ -25,11 +25,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         // Format the shortcut string to use <kbd> tags
         const keys = copyCommand.shortcut.split("+");
         const formattedKeys = keys.map((key) => {
-          // Replace common key names with symbols/nicer text if desired
           let displayKey = key.trim();
-          if (displayKey.toLowerCase() === "shift") {
-            displayKey = "⇧";
-          }
+          const lower = displayKey.toLowerCase();
+          if (lower === "shift") displayKey = "⇧";
+          else if (lower === "command" || lower === "meta" || lower === "⌘") displayKey = "⌘";
+          else if (lower === "ctrl" || lower === "control") displayKey = "Ctrl";
           return `<kbd>${displayKey}</kbd>`;
         });
         shortcutDisplay.innerHTML = formattedKeys.join(" + ");

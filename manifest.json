@@ -25,9 +25,17 @@
     "copy-url": {
       "suggested_key": {
         "default": "Ctrl+Shift+C",
-        "mac": "MacCtrl+Shift+C"
+        "mac": "Command+Shift+C"
       },
       "description": "Copiar URL da aba atual"
     }
-  }
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_start",
+      "all_frames": true
+    }
+  ]
 }
