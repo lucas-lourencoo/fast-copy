@@ -2,7 +2,7 @@
 
 ## Visão Geral
 
-Extensão Chrome (Manifest V3) que copia a URL da aba ativa para o clipboard via atalho `⌘+⇧+C` (Mac) / `Ctrl+⇧+C` (Win/Linux), substituindo o atalho nativo do DevTools.
+Extensão Chrome (Manifest V3) que copia a URL da aba ativa para o clipboard via atalho `Ctrl+⇧+C` (todas as plataformas).
 
 ## Arquitetura
 
@@ -34,4 +34,6 @@ icons/             → Ícones da extensão (16, 48, 128)
 
 - `content.js` **não roda** em páginas `chrome://` — nessas, o `chrome.commands` do manifest assume
 - O atalho pode ser alterado pelo usuário em `chrome://extensions/shortcuts`
+- Chrome **não expõe API** para ler cores do tema do navegador. A solução é um seletor de cor manual no popup, salvo em `chrome.storage.local`
+- `Cmd+Shift+C` é reservado pelo Chrome (DevTools). Por isso o atalho usa `Ctrl` (tecla Control física no Mac)
 - Permissões mínimas: `activeTab`, `clipboardWrite`, `scripting`

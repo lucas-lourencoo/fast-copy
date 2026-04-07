@@ -70,5 +70,8 @@
   },
   "changeShortcut": {
     "message": "Alterar atalho"
+  },
+  "popupThemeLabel": {
+    "message": "Cor do tema"
   }
 }

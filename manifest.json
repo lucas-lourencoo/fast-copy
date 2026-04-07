@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "description": "__MSG_extDescription__",
   "default_locale": "en",
-  "permissions": ["activeTab", "clipboardWrite", "scripting"],
+  "permissions": ["activeTab", "clipboardWrite", "scripting", "storage"],
   "background": {
     "service_worker": "background.js"
   },
@@ -25,7 +25,7 @@
     "copy-url": {
       "suggested_key": {
         "default": "Ctrl+Shift+C",
-        "mac": "Command+Shift+C"
+        "mac": "MacCtrl+Shift+C"
       },
       "description": "Copiar URL da aba atual"
     }

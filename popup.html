@@ -5,54 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fast Copy URL</title>
     <style>
-      /* ── Default theme (light fallback) ── */
       :root {
-        --bg-gradient-1: #f0f0f5;
-        --bg-gradient-2: #e8e8f0;
-        --bg-gradient-3: #f5f5fa;
-        --text-primary: #1a1a2e;
-        --text-secondary: #5a5a7a;
-        --text-heading: #1a1a2e;
         --accent: #667eea;
         --accent-secondary: #764ba2;
         --accent-shadow: rgba(102, 126, 234, 0.25);
         --accent-shadow-hover: rgba(102, 126, 234, 0.4);
-        --card-bg: rgba(0, 0, 0, 0.04);
-        --card-border: rgba(0, 0, 0, 0.08);
-        --card-bg-hover: rgba(0, 0, 0, 0.06);
-        --card-border-hover: rgba(102, 126, 234, 0.3);
-        --url-text: #3a3a5a;
-        --kbd-bg: rgba(0, 0, 0, 0.06);
-        --kbd-border: rgba(0, 0, 0, 0.1);
-        --kbd-text: #5a5a7a;
-        --hint-text: #8b8ba3;
-        --success-gradient-1: #11998e;
-        --success-gradient-2: #38ef7d;
-        --success-shadow: rgba(56, 239, 125, 0.25);
-      }
-
-      /* ── Dark fallback ── */
-      @media (prefers-color-scheme: dark) {
-        :root {
-          --bg-gradient-1: #0f0c29;
-          --bg-gradient-2: #1a1a3e;
-          --bg-gradient-3: #24243e;
-          --text-primary: #e0e0e0;
-          --text-secondary: #8b8ba3;
-          --text-heading: #ffffff;
-          --card-bg: rgba(255, 255, 255, 0.06);
-          --card-border: rgba(255, 255, 255, 0.08);
-          --card-bg-hover: rgba(255, 255, 255, 0.08);
-          --card-border-hover: rgba(102, 126, 234, 0.3);
-          --url-text: #c8c8e0;
-          --kbd-bg: rgba(255, 255, 255, 0.08);
-          --kbd-border: rgba(255, 255, 255, 0.12);
-          --kbd-text: #8b8ba3;
-          --hint-text: #5a5a7a;
-          --accent-shadow: rgba(102, 126, 234, 0.3);
-          --accent-shadow-hover: rgba(102, 126, 234, 0.45);
-          --success-shadow: rgba(56, 239, 125, 0.3);
-        }
       }
 
       * {
@@ -66,10 +23,50 @@
         font-family:
           -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
           "Helvetica Neue", sans-serif;
+        overflow: hidden;
+        transition: background 0.3s ease, color 0.3s ease;
+      }
+
+      /* ── Light mode ── */
+      body.theme-light {
+        --bg-gradient-1: #f0f0f5;
+        --bg-gradient-2: #e8e8f0;
+        --bg-gradient-3: #f5f5fa;
+        --text-primary: #1a1a2e;
+        --text-secondary: #5a5a7a;
+        --text-heading: #1a1a2e;
+        --card-bg: rgba(0, 0, 0, 0.04);
+        --card-border: rgba(0, 0, 0, 0.08);
+        --card-bg-hover: rgba(0, 0, 0, 0.06);
+        --url-text: #3a3a5a;
+        --kbd-bg: rgba(0, 0, 0, 0.06);
+        --kbd-border: rgba(0, 0, 0, 0.1);
+        --kbd-text: #5a5a7a;
+        --hint-text: #8b8ba3;
+        --swatch-border: rgba(0, 0, 0, 0.15);
         background: linear-gradient(145deg, var(--bg-gradient-1), var(--bg-gradient-2), var(--bg-gradient-3));
         color: var(--text-primary);
-        overflow: hidden;
-        transition: background 0.3s ease;
+      }
+
+      /* ── Dark mode ── */
+      body.theme-dark {
+        --bg-gradient-1: #0f0c29;
+        --bg-gradient-2: #1a1a3e;
+        --bg-gradient-3: #24243e;
+        --text-primary: #e0e0e0;
+        --text-secondary: #8b8ba3;
+        --text-heading: #ffffff;
+        --card-bg: rgba(255, 255, 255, 0.06);
+        --card-border: rgba(255, 255, 255, 0.08);
+        --card-bg-hover: rgba(255, 255, 255, 0.08);
+        --url-text: #c8c8e0;
+        --kbd-bg: rgba(255, 255, 255, 0.08);
+        --kbd-border: rgba(255, 255, 255, 0.12);
+        --kbd-text: #8b8ba3;
+        --hint-text: #5a5a7a;
+        --swatch-border: rgba(255, 255, 255, 0.2);
+        background: linear-gradient(145deg, var(--bg-gradient-1), var(--bg-gradient-2), var(--bg-gradient-3));
+        color: var(--text-primary);
       }
 
       .container {
@@ -125,7 +122,7 @@
 
       .url-display:hover {
         background: var(--card-bg-hover);
-        border-color: var(--card-border-hover);
+        border-color: var(--accent-shadow);
       }
 
       .url-label {
@@ -182,8 +179,8 @@
       }
 
       .copy-btn.copied {
-        background: linear-gradient(135deg, var(--success-gradient-1) 0%, var(--success-gradient-2) 100%);
-        box-shadow: 0 4px 16px var(--success-shadow);
+        background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        box-shadow: 0 4px 16px rgba(56, 239, 125, 0.25);
       }
 
       .copy-btn svg {
@@ -192,6 +189,99 @@
         transition: all 0.2s ease;
       }
 
+      /* ── Theme picker ── */
+      .theme-section {
+        margin-top: 18px;
+        padding-top: 16px;
+        border-top: 1px solid var(--card-border);
+      }
+
+      .theme-label {
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--hint-text);
+        font-weight: 600;
+        margin-bottom: 10px;
+      }
+
+      .color-swatches {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      .color-swatch {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        border: 2px solid var(--swatch-border);
+        cursor: pointer;
+        transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+        position: relative;
+      }
+
+      .color-swatch:hover {
+        transform: scale(1.15);
+      }
+
+      .color-swatch.active {
+        border-color: var(--text-heading);
+        box-shadow: 0 0 0 2px var(--accent-shadow);
+        transform: scale(1.1);
+      }
+
+      .color-swatch.active::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 8px;
+        height: 8px;
+        background: white;
+        border-radius: 50%;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+      }
+
+      .color-custom {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        border: 2px dashed var(--swatch-border);
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.15s ease, border-color 0.15s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .color-custom:hover {
+        transform: scale(1.15);
+        border-color: var(--hint-text);
+      }
+
+      .color-custom svg {
+        width: 12px;
+        height: 12px;
+        color: var(--hint-text);
+        pointer-events: none;
+      }
+
+      .color-custom input[type="color"] {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        cursor: pointer;
+        border: none;
+        padding: 0;
+      }
+
+      /* ── Shortcut / links ── */
       .shortcut-hint {
         text-align: center;
         margin-top: 16px;
@@ -277,6 +367,14 @@
         </svg>
         <span id="copyText" data-i18n="popupCopyBtn">Copy URL</span>
       </button>
+
+      <!-- Theme color picker -->
+      <div class="theme-section">
+        <div class="theme-label" data-i18n="popupThemeLabel">Theme color</div>
+        <div class="color-swatches" id="colorSwatches">
+          <!-- Swatches injected by popup.js -->
+        </div>
+      </div>
 
       <a
         class="change-shortcut-link"

@@ -5,10 +5,7 @@
 document.addEventListener(
   "keydown",
   (e) => {
-    const isMac = navigator.platform.toUpperCase().includes("MAC");
-    const modifier = isMac ? e.metaKey : e.ctrlKey;
-
-    if (modifier && e.shiftKey && e.code === "KeyC") {
+    if (e.ctrlKey && e.shiftKey && e.code === "KeyC") {
       e.preventDefault();
       e.stopPropagation();
       e.stopImmediatePropagation();

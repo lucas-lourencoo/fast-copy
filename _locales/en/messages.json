@@ -70,5 +70,8 @@
   },
   "changeShortcut": {
     "message": "Change shortcut"
+  },
+  "popupThemeLabel": {
+    "message": "Theme color"
   }
 }
