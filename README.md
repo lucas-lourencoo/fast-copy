@@ -53,6 +53,10 @@ Se os atalhos não estiverem funcionando porque entram em conflito com outra ext
 - Vanilla JavaScript
 - Chrome Extensions API (Manifest V3)
 
+## 🔒 Privacidade
+
+O **Fast Copy** respeita sua privacidade e opera de forma 100% local. Para mais detalhes, leia nossa [Política de Privacidade](PRIVACY.md).
+
 ## 📄 Licença
 
 Distribuído sob a licença MIT. Sinta-se à vontade para utilizar, modificar e distribuir o código.
