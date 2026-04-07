@@ -1,6 +1,6 @@
 {
   "extName": {
-    "message": "Fast Copy URL"
+    "message": "Fast Copy"
   },
   "extDescription": {
     "message": "Copie a URL da aba atual para a área de transferência instantaneamente com Ctrl+Shift+C"
@@ -9,7 +9,7 @@
     "message": "Link Copiado!"
   },
   "popupTitle": {
-    "message": "Fast Copy URL"
+    "message": "Fast Copy"
   },
   "popupSubtitle": {
     "message": "Copie URLs em um clique"
@@ -39,7 +39,7 @@
     "message": "Instalação concluída"
   },
   "welcomeTitle": {
-    "message": "Obrigado por instalar o Fast Copy URL!"
+    "message": "Obrigado por instalar o Fast Copy!"
   },
   "welcomeSubtitle": {
     "message": "Copie a URL de qualquer aba instantaneamente com um simples atalho de teclado. Rápido, leve e sem complicações."
@@ -78,7 +78,7 @@
     "message": "Apoie o projeto"
   },
   "donateCta": {
-    "message": "A gostar do Fast Copy URL?"
+    "message": "A gostar do Fast Copy?"
   },
   "donateDesc": {
     "message": "Esta extensão é gratuita e de código aberto. Se poupa tempo todos os dias, considere pagar um café!"

@@ -1,8 +1,8 @@
 <div align="center">
 
-# Fast Copy URL
+# Fast Copy
 
-<img src="icons/icon128.png" width="80" alt="Fast Copy URL Icon" />
+<img src="icons/icon128.png" width="80" alt="Fast Copy Icon" />
 
 **Uma extensão Chrome minimalista para copiar URLs via atalho.**
 
@@ -13,7 +13,7 @@
 
 ## 📌 O que é?
 
-**Fast Copy URL** é uma extensão incrivelmente leve para o Google Chrome que permite copiar a URL da aba atual diretamente para sua área de transferência com um simples atalho de teclado, sem precisar clicar na barra de endereços.
+**Fast Copy** é uma extensão incrivelmente leve para o Google Chrome que permite copiar a URL da aba atual diretamente para sua área de transferência com um simples atalho de teclado, sem precisar clicar na barra de endereços.
 
 Ao copiar, a extensão exibe um discreto e elegante toast de confirmação ("Link Copiado!") no topo da página.
 
@@ -45,7 +45,7 @@ Como a extensão ainda foca em uso local/pessoal, você pode instalá-la facilme
 
 Após o uso, você verá uma notificação "Link Copiado!" no topo central da tela, e o link já estará na sua área de transferência.
 
-Se os atalhos não estiverem funcionando porque entram em conflito com outra extensão, você pode alterar o atalho padrão do Fast Copy URL acessando `chrome://extensions/shortcuts`.
+Se os atalhos não estiverem funcionando porque entram em conflito com outra extensão, você pode alterar o atalho padrão do Fast Copy acessando `chrome://extensions/shortcuts`.
 
 ## 🛠 Tecnologias
 

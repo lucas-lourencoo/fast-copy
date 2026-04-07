@@ -1,4 +1,4 @@
-// Fast Copy URL - Content Script
+// Fast Copy - Content Script
 // Intercepts Cmd+Shift+C (Mac) / Ctrl+Shift+C (Win/Linux) to prevent DevTools
 // and triggers the copy URL action instead.
 

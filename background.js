@@ -1,4 +1,4 @@
-// Fast Copy URL - Background Service Worker
+// Fast Copy - Background Service Worker
 
 chrome.runtime.onInstalled.addListener((details) => {
   if (details.reason === "install") {

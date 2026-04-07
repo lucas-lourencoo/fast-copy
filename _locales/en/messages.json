@@ -1,6 +1,6 @@
 {
   "extName": {
-    "message": "Fast Copy URL"
+    "message": "Fast Copy"
   },
   "extDescription": {
     "message": "Instantly copy the current tab's URL to clipboard with Ctrl+Shift+C"
@@ -9,7 +9,7 @@
     "message": "Link Copied!"
   },
   "popupTitle": {
-    "message": "Fast Copy URL"
+    "message": "Fast Copy"
   },
   "popupSubtitle": {
     "message": "Copy URLs in one click"
@@ -39,7 +39,7 @@
     "message": "Installation complete"
   },
   "welcomeTitle": {
-    "message": "Thanks for installing Fast Copy URL!"
+    "message": "Thanks for installing Fast Copy!"
   },
   "welcomeSubtitle": {
     "message": "Instantly copy the URL of any tab with a simple keyboard shortcut. Fast, lightweight, and hassle-free."
@@ -78,7 +78,7 @@
     "message": "Support the project"
   },
   "donateCta": {
-    "message": "Enjoying Fast Copy URL?"
+    "message": "Enjoying Fast Copy?"
   },
   "donateDesc": {
     "message": "This extension is free and open-source. If it saves you time every day, consider buying me a coffee!"

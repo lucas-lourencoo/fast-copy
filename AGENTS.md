@@ -1,4 +1,4 @@
-# AGENTS.md — Fast Copy URL
+# AGENTS.md — Fast Copy
 
 ## Visão Geral
 
