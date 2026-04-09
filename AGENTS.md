@@ -31,5 +31,5 @@ icons/             → Ícones da extensão (16, 48, 128)
 
 ## Pontos de Atenção
 
-- Permissões mínimas: `activeTab`, `clipboardWrite`, `scripting`, `storage`
+- Permissões mínimas: `activeTab`, `clipboardWrite`, `scripting`
 - O atalho global não requer `<all_urls>`, facilitando o processo de revisão na Chrome Web Store
