@@ -11,7 +11,6 @@ document.addEventListener("DOMContentLoaded", () => {
     "changeShortcutWelcomeBtn",
   );
 
-  // Fetch actual shortcut
   if (chrome.commands && chrome.commands.getAll) {
     chrome.commands.getAll((commands) => {
       const copyCommand = commands.find((c) => c.name === "copy-url");

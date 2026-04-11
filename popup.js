@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", async () => {
-  // ── i18n ──
   document.querySelectorAll("[data-i18n]").forEach((el) => {
     const msg = chrome.i18n.getMessage(el.dataset.i18n);
     if (msg) el.textContent = msg;
@@ -18,11 +17,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   const shortcutDisplay = document.getElementById("shortcutDisplay");
   const changeShortcutBtn = document.getElementById("changeShortcutBtn");
 
-  // ── Apply OS dark/light mode ──
   const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
   document.body.classList.add(isDark ? "theme-dark" : "theme-light");
 
-  // ── Fetch actual shortcut ──
   if (chrome.commands && chrome.commands.getAll) {
     chrome.commands.getAll((commands) => {
       const copyCommand = commands.find((c) => c.name === "copy-url");
@@ -32,7 +29,8 @@ document.addEventListener("DOMContentLoaded", async () => {
           let displayKey = key.trim();
           const lower = displayKey.toLowerCase();
           if (lower === "shift") displayKey = "⇧";
-          else if (lower === "command" || lower === "meta" || lower === "⌘") displayKey = "⌘";
+          else if (lower === "command" || lower === "meta" || lower === "⌘")
+            displayKey = "⌘";
           else if (lower === "ctrl" || lower === "control") displayKey = "Ctrl";
           return `<kbd>${displayKey}</kbd>`;
         });
@@ -47,7 +45,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   }
 
-  // ── Load current URL ──
   try {
     const [tab] = await chrome.tabs.query({
       active: true,
@@ -62,7 +59,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     urlText.textContent = msgError;
   }
 
-  // ── Copy button ──
   copyBtn.addEventListener("click", async () => {
     const url = urlText.textContent;
     if (!url || url === msgUnavailable || url === msgError) return;
