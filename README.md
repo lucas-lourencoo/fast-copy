@@ -6,6 +6,7 @@
 
 **Uma extensão Chrome minimalista para copiar URLs via atalho.**
 
+[![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-Install-4285F4?logo=googlechrome&logoColor=white)](https://chromewebstore.google.com/detail/bbbgfepehfgaopbfeccedcmcfijofbfn)
 [![Manifest V3](https://img.shields.io/badge/Manifest-V3-success.svg)](#)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
@@ -24,19 +25,21 @@ Ao copiar, a extensão exibe um discreto e elegante toast de confirmação ("Lin
 - **Popup Rápido:** Mostra a URL atual com um botão de cópia rápido ao clicar no ícone da extensão.
 - **Leve e Segura:** Construída com Manifest V3, garantindo performance e permissões estritas (apenas escuta a aba atual e acessa o clipboard localmente).
 
-## 🚀 Como instalar (Modo Desenvolvedor)
+## 🚀 Como instalar
 
-Como a extensão ainda foca em uso local/pessoal, você pode instalá-la facilmente pelo Modo Desenvolvedor do Chrome.
+### Chrome Web Store (Recomendado)
 
-1. Faça o clone deste repositório ou baixe o código-fonte:
+Instale diretamente pela [Chrome Web Store](https://chromewebstore.google.com/detail/bbbgfepehfgaopbfeccedcmcfijofbfn).
+
+### Modo Desenvolvedor
+
+1. Clone este repositório:
    ```bash
    git clone https://github.com/lucaslourenco/fast-copy.git
    ```
-2. Abra o Google Chrome e navegue até a página de extensões: `chrome://extensions/`
-3. Ative o **Modo do Desenvolvedor** (chave seletora no canto superior direito).
-4. Clique no botão **Carregar sem compactação** (ou "Load unpacked").
-5. Selecione a pasta onde você clonou/baixou este repositório (`fast-copy`).
-6. **Pronto!** A extensão está instalada.
+2. Abra `chrome://extensions/`
+3. Ative o **Modo do Desenvolvedor** (canto superior direito).
+4. Clique em **Carregar sem compactação** e selecione a pasta `fast-copy`.
 
 ## ⌨️ Como Usar
 
