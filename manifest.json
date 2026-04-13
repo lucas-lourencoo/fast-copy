@@ -1,10 +1,10 @@
 {
   "manifest_version": 3,
   "name": "Fast Copy",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Copy URL of current tab to clipboard",
   "default_locale": "en",
-  "permissions": ["activeTab", "clipboardWrite", "scripting"],
+  "permissions": ["activeTab", "clipboardWrite", "scripting", "storage"],
   "background": {
     "service_worker": "background.js"
   },
@@ -21,11 +21,12 @@
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
   },
+  "options_page": "options.html",
   "commands": {
     "copy-url": {
       "suggested_key": {
-        "default": "Ctrl+Shift+C",
-        "mac": "MacCtrl+Shift+C"
+        "default": "Ctrl+Shift+U",
+        "mac": "Command+Shift+U"
       },
       "description": "Copiar URL da aba atual"
     }

@@ -8,6 +8,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   const copyBtn = document.getElementById("copyBtn");
   const copyBtnText = document.getElementById("copyText");
   const copyIcon = document.getElementById("copyIcon");
+  const matchPreview = document.getElementById("matchPreview");
+  const matchPreviewText = document.getElementById("matchPreviewText");
+  const matchRuleName = document.getElementById("matchRuleName");
+  const noMatchSpacer = document.getElementById("noMatchSpacer");
+  const openOptionsBtn = document.getElementById("openOptionsBtn");
 
   const msgUnavailable = chrome.i18n.getMessage("popupUrlUnavailable");
   const msgError = chrome.i18n.getMessage("popupUrlError");
@@ -45,6 +50,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   }
 
+  if (openOptionsBtn) {
+    openOptionsBtn.title = chrome.i18n.getMessage("openOptions") || "URL Rules";
+    openOptionsBtn.addEventListener("click", () => {
+      chrome.runtime.openOptionsPage();
+    });
+  }
+
+  let textToCopy = "";
+
   try {
     const [tab] = await chrome.tabs.query({
       active: true,
@@ -52,6 +66,20 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
     if (tab?.url) {
       urlText.textContent = tab.url;
+      textToCopy = tab.url;
+
+      const result = await applyUrlRules(tab.url);
+      if (result.isPartial) {
+        textToCopy = result.text;
+        matchPreviewText.textContent = result.text;
+        if (result.label) {
+          matchRuleName.textContent = result.label;
+        }
+        matchPreview.classList.add("visible");
+        noMatchSpacer.style.display = "none";
+      } else {
+        noMatchSpacer.style.display = "block";
+      }
     } else {
       urlText.textContent = msgUnavailable;
     }
@@ -60,15 +88,15 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   copyBtn.addEventListener("click", async () => {
-    const url = urlText.textContent;
-    if (!url || url === msgUnavailable || url === msgError) return;
+    if (!textToCopy || textToCopy === msgUnavailable || textToCopy === msgError)
+      return;
 
     try {
-      await navigator.clipboard.writeText(url);
+      await navigator.clipboard.writeText(textToCopy);
       showCopiedState();
     } catch (err) {
       const textarea = document.createElement("textarea");
-      textarea.value = url;
+      textarea.value = textToCopy;
       textarea.style.position = "fixed";
       textarea.style.opacity = "0";
       document.body.appendChild(textarea);
@@ -94,3 +122,30 @@ document.addEventListener("DOMContentLoaded", async () => {
     }, 2000);
   }
 });
+
+async function applyUrlRules(url) {
+  try {
+    const { urlRules = [] } = await chrome.storage.sync.get("urlRules");
+    if (!urlRules.length) return { text: url, isPartial: false };
+
+    const urlObj = new URL(url);
+    const hostname = urlObj.hostname;
+
+    for (const rule of urlRules) {
+      if (!rule.enabled) continue;
+      if (!hostname.includes(rule.domain)) continue;
+
+      try {
+        const regex = new RegExp(rule.regex);
+        const match = url.match(regex);
+        if (match && match[1]) {
+          return { text: match[1], isPartial: true, label: rule.label };
+        }
+      } catch (e) {}
+    }
+
+    return { text: url, isPartial: false };
+  } catch (e) {
+    return { text: url, isPartial: false };
+  }
+}

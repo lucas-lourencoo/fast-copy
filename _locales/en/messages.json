@@ -3,10 +3,16 @@
     "message": "Fast Copy"
   },
   "extDescription": {
-    "message": "Instantly copy the current tab's URL to clipboard with Ctrl+Shift+C"
+    "message": "Instantly copy the current tab's URL to clipboard with Ctrl+Shift+U"
   },
   "toastMessage": {
     "message": "Link Copied!"
+  },
+  "toastMessagePartial": {
+    "message": "Extracted & Copied!"
+  },
+  "toastMessageFallback": {
+    "message": "Full URL Copied (no regex match)"
   },
   "popupTitle": {
     "message": "Fast Copy"
@@ -16,6 +22,9 @@
   },
   "popupUrlLabel": {
     "message": "Current URL"
+  },
+  "popupCopyLabel": {
+    "message": "Will copy"
   },
   "popupCopyBtn": {
     "message": "Copy URL"
@@ -85,5 +94,95 @@
   },
   "donateBtn": {
     "message": "Buy me a coffee ☕"
+  },
+  "openOptions": {
+    "message": "URL Rules"
+  },
+  "optionsTitle": {
+    "message": "URL Rules"
+  },
+  "optionsSubtitle": {
+    "message": "Define regex patterns to extract specific parts of URLs per domain"
+  },
+  "rulesDomain": {
+    "message": "Domain"
+  },
+  "rulesDomainPlaceholder": {
+    "message": "e.g. github.com"
+  },
+  "rulesRegex": {
+    "message": "Regex Pattern"
+  },
+  "rulesRegexPlaceholder": {
+    "message": "e.g. github\\.com\\/([^\\/]+\\/[^\\/]+)"
+  },
+  "rulesLabel": {
+    "message": "Label"
+  },
+  "rulesLabelPlaceholder": {
+    "message": "e.g. User/Repo"
+  },
+  "addRule": {
+    "message": "Add Rule"
+  },
+  "saveRule": {
+    "message": "Save"
+  },
+  "cancelEdit": {
+    "message": "Cancel"
+  },
+  "deleteRule": {
+    "message": "Delete"
+  },
+  "editRule": {
+    "message": "Edit"
+  },
+  "testRegex": {
+    "message": "Test"
+  },
+  "testUrlPlaceholder": {
+    "message": "Paste a URL to test your regex..."
+  },
+  "testResult": {
+    "message": "Result:"
+  },
+  "noMatch": {
+    "message": "No match — full URL will be copied"
+  },
+  "noRules": {
+    "message": "No rules yet. Without rules, the full URL is always copied."
+  },
+  "regexInvalid": {
+    "message": "Invalid regex pattern"
+  },
+  "ruleEnabled": {
+    "message": "Enabled"
+  },
+  "ruleDisabled": {
+    "message": "Disabled"
+  },
+  "ruleActiveIndicator": {
+    "message": "Active rule for this domain"
+  },
+  "toastRuleAdded": {
+    "message": "Rule added!"
+  },
+  "toastRuleUpdated": {
+    "message": "Rule updated!"
+  },
+  "toastRuleDeleted": {
+    "message": "Rule deleted"
+  },
+  "fieldRequired": {
+    "message": "This field is required"
+  },
+  "domainInvalid": {
+    "message": "Enter a valid domain (e.g. github.com)"
+  },
+  "regexDuplicate": {
+    "message": "This regex pattern already exists"
+  },
+  "rulesTitle": {
+    "message": "Rules"
   }
 }

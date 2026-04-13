@@ -20,7 +20,8 @@ Ao copiar, a extensão exibe um discreto e elegante toast de confirmação ("Lin
 
 ## ✨ Funcionalidades
 
-- **Atalho Universal:** Use `Ctrl + Shift + C` (ou `MacCtrl + Shift + C` no macOS) em qualquer aba.
+- **Atalho Universal:** Use `Ctrl + Shift + U` (ou `Cmd + Shift + U` no macOS) em qualquer aba.
+- **Regras de URL por Domínio:** Defina padrões regex para extrair trechos específicos de URLs (ex: copiar apenas `user/repo` do GitHub).
 - **Feedback Visual Elegante:** Exibe uma notificação flutuante e temporária confirmando a cópia.
 - **Popup Rápido:** Mostra a URL atual com um botão de cópia rápido ao clicar no ícone da extensão.
 - **Leve e Segura:** Construída com Manifest V3, garantindo performance e permissões estritas (apenas escuta a aba atual e acessa o clipboard localmente).
@@ -43,10 +44,18 @@ Instale diretamente pela [Chrome Web Store](https://chromewebstore.google.com/de
 
 ## ⌨️ Como Usar
 
-- **No Windows/Linux:** Pressione `Ctrl + Shift + C`
-- **No macOS:** Pressione `Ctrl + Shift + C` (A tecla _Control_ física do Mac)
+- **No Windows/Linux:** Pressione `Ctrl + Shift + U`
+- **No macOS:** Pressione `Cmd + Shift + U`
 
 Após o uso, você verá uma notificação "Link Copiado!" no topo central da tela, e o link já estará na sua área de transferência.
+
+### Regras de URL (Regex)
+
+Você pode definir regras para copiar apenas uma parte específica da URL, baseado em domínio + regex:
+
+1. Clique no ícone ⚙️ no popup da extensão (ou acesse as opções via `chrome://extensions`)
+2. Adicione uma regra com domínio (ex: `github.com`) e padrão regex com capture group (ex: `github\.com\/([^\/]+\/[^\/]+)`)
+3. Quando você copiar uma URL que dê match, apenas o conteúdo do primeiro grupo de captura será copiado
 
 Se os atalhos não estiverem funcionando porque entram em conflito com outra extensão, você pode alterar o atalho padrão do Fast Copy acessando `chrome://extensions/shortcuts`.
 

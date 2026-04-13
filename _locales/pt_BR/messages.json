@@ -3,10 +3,16 @@
     "message": "Fast Copy"
   },
   "extDescription": {
-    "message": "Copie a URL da aba atual para a área de transferência instantaneamente com Ctrl+Shift+C"
+    "message": "Copie a URL da aba atual para a área de transferência instantaneamente com Ctrl+Shift+U"
   },
   "toastMessage": {
     "message": "Link Copiado!"
+  },
+  "toastMessagePartial": {
+    "message": "Extraído e Copiado!"
+  },
+  "toastMessageFallback": {
+    "message": "URL completa copiada (sem match no regex)"
   },
   "popupTitle": {
     "message": "Fast Copy"
@@ -16,6 +22,9 @@
   },
   "popupUrlLabel": {
     "message": "URL Atual"
+  },
+  "popupCopyLabel": {
+    "message": "Vai copiar"
   },
   "popupCopyBtn": {
     "message": "Copiar URL"
@@ -85,5 +94,95 @@
   },
   "donateBtn": {
     "message": "Pagar um café ☕"
+  },
+  "openOptions": {
+    "message": "Regras de URL"
+  },
+  "optionsTitle": {
+    "message": "Regras de URL"
+  },
+  "optionsSubtitle": {
+    "message": "Defina padrões regex para extrair partes específicas de URLs por domínio"
+  },
+  "rulesDomain": {
+    "message": "Domínio"
+  },
+  "rulesDomainPlaceholder": {
+    "message": "ex: github.com"
+  },
+  "rulesRegex": {
+    "message": "Padrão Regex"
+  },
+  "rulesRegexPlaceholder": {
+    "message": "ex: github\\.com\\/([^\\/]+\\/[^\\/]+)"
+  },
+  "rulesLabel": {
+    "message": "Rótulo"
+  },
+  "rulesLabelPlaceholder": {
+    "message": "ex: Usuário/Repo"
+  },
+  "addRule": {
+    "message": "Adicionar Regra"
+  },
+  "saveRule": {
+    "message": "Salvar"
+  },
+  "cancelEdit": {
+    "message": "Cancelar"
+  },
+  "deleteRule": {
+    "message": "Excluir"
+  },
+  "editRule": {
+    "message": "Editar"
+  },
+  "testRegex": {
+    "message": "Testar"
+  },
+  "testUrlPlaceholder": {
+    "message": "Cole uma URL para testar seu regex..."
+  },
+  "testResult": {
+    "message": "Resultado:"
+  },
+  "noMatch": {
+    "message": "Sem match — a URL completa será copiada"
+  },
+  "noRules": {
+    "message": "Nenhuma regra ainda. Sem regras, a URL completa é sempre copiada."
+  },
+  "regexInvalid": {
+    "message": "Padrão regex inválido"
+  },
+  "ruleEnabled": {
+    "message": "Ativa"
+  },
+  "ruleDisabled": {
+    "message": "Desativada"
+  },
+  "ruleActiveIndicator": {
+    "message": "Regra ativa para este domínio"
+  },
+  "toastRuleAdded": {
+    "message": "Regra adicionada!"
+  },
+  "toastRuleUpdated": {
+    "message": "Regra atualizada!"
+  },
+  "toastRuleDeleted": {
+    "message": "Regra excluída"
+  },
+  "fieldRequired": {
+    "message": "Este campo é obrigatório"
+  },
+  "domainInvalid": {
+    "message": "Insira um domínio válido (ex: github.com)"
+  },
+  "regexDuplicate": {
+    "message": "Este padrão regex já existe"
+  },
+  "rulesTitle": {
+    "message": "Regras"
   }
 }
