@@ -228,6 +228,9 @@
     "message": "URL Rules"
   },
   "onboardStep4Label": {
+    "message": "History"
+  },
+  "onboardStep5Label": {
     "message": "Done"
   },
   "onboardShortcutEyebrow": {
@@ -247,6 +250,9 @@
   },
   "onboardRegexDesc": {
     "message": "Create regex rules to automatically extract only the part of the URL you need — like repo names, ticket IDs, or order numbers."
+  },
+  "onboardHistoryEyebrow": {
+    "message": "Step 4"
   },
   "onboardQuickRuleTitle": {
     "message": "Add your first rule (optional)"
@@ -283,5 +289,11 @@
   },
   "historyCloseHint": {
     "message": "↑↓ navigate · Enter to select"
+  },
+  "onboardHistoryTitle": {
+    "message": "Copy History"
+  },
+  "onboardHistoryDesc": {
+    "message": "Access your last 10 copied links instantly. Navigate with arrow keys, press Enter to select and paste."
   }
 }

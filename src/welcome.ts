@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  const TOTAL_STEPS = 4;
+  const TOTAL_STEPS = 5;
   let currentStep = 0;
   let ruleSaved = false;
 
@@ -61,12 +61,12 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const demoShortcutKeys = document.getElementById("demoShortcutKeys");
+  const demoHistoryKeys = document.getElementById("demoHistoryKeys");
   if (typeof chrome !== "undefined" && chrome.commands && chrome.commands.getAll) {
     chrome.commands.getAll((commands) => {
-      const copyCommand = commands.find((c) => c.name === "copy-url");
-      if (copyCommand && copyCommand.shortcut && demoShortcutKeys) {
-        const keys = copyCommand.shortcut.split("+");
-        demoShortcutKeys.innerHTML = keys
+      const renderKeys = (el: HTMLElement, shortcut: string) => {
+        const keys = shortcut.split("+");
+        el.innerHTML = keys
           .map((key, index) => {
             let displayKey = key.trim();
             if (displayKey.toLowerCase() === "shift") displayKey = "Shift";
@@ -75,6 +75,16 @@ document.addEventListener("DOMContentLoaded", () => {
             return html;
           })
           .join("");
+      };
+
+      const copyCommand = commands.find((c) => c.name === "copy-url");
+      if (copyCommand && copyCommand.shortcut && demoShortcutKeys) {
+        renderKeys(demoShortcutKeys, copyCommand.shortcut);
+      }
+
+      const historyCommand = commands.find((c) => c.name === "show-history");
+      if (historyCommand && historyCommand.shortcut && demoHistoryKeys) {
+        renderKeys(demoHistoryKeys, historyCommand.shortcut);
       }
     });
   }

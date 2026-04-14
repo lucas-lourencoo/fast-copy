@@ -2,9 +2,9 @@
 
 # Fast Copy
 
-<img src="icons/icon128.png" width="80" alt="Fast Copy Icon" />
+<img src="public/icons/icon128.png" width="80" alt="Fast Copy Icon" />
 
-**Uma extensão Chrome minimalista para copiar URLs via atalho.**
+**A minimalist Chrome extension to copy URLs via keyboard shortcut.**
 
 [![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-Install-4285F4?logo=googlechrome&logoColor=white)](https://chromewebstore.google.com/detail/bbbgfepehfgaopbfeccedcmcfijofbfn)
 [![Manifest V3](https://img.shields.io/badge/Manifest-V3-success.svg)](#)
@@ -12,63 +12,89 @@
 
 </div>
 
-## 📌 O que é?
+## 📌 What is it?
 
-**Fast Copy** é uma extensão incrivelmente leve para o Google Chrome que permite copiar a URL da aba atual diretamente para sua área de transferência com um simples atalho de teclado, sem precisar clicar na barra de endereços.
+**Fast Copy** is an incredibly lightweight Chrome extension that lets you copy the current tab's URL directly to your clipboard with a simple keyboard shortcut — no need to click the address bar.
 
-Ao copiar, a extensão exibe um discreto e elegante toast de confirmação ("Link Copiado!") no topo da página.
+When you copy, the extension displays a sleek toast notification ("Link Copied!") at the top of the page.
 
-## ✨ Funcionalidades
+## ✨ Features
 
-- **Atalho Universal:** Use `Ctrl + Shift + U` (ou `Cmd + Shift + U` no macOS) em qualquer aba.
-- **Regras de URL por Domínio:** Defina padrões regex para extrair trechos específicos de URLs (ex: copiar apenas `user/repo` do GitHub).
-- **Feedback Visual Elegante:** Exibe uma notificação flutuante e temporária confirmando a cópia.
-- **Popup Rápido:** Mostra a URL atual com um botão de cópia rápido ao clicar no ícone da extensão.
-- **Leve e Segura:** Construída com Manifest V3, garantindo performance e permissões estritas (apenas escuta a aba atual e acessa o clipboard localmente).
+- **Copy Shortcut:** Use `Ctrl+Shift+U` (or `Cmd+Shift+U` on macOS) on any tab to instantly copy the URL.
+- **Copy History:** Press `Ctrl+Shift+Y` (or `Cmd+Shift+Y` on macOS) to open an overlay with your last 10 copied URLs. Navigate with `↑↓` keys, press `Enter` to re-copy and paste-in-place.
+- **URL Rules (Regex):** Define per-domain regex patterns to extract specific parts of URLs (e.g., copy only `user/repo` from GitHub).
+- **Visual Feedback:** Displays a floating, temporary toast confirming each copy.
+- **Quick Popup:** Click the extension icon to see the current URL with a one-click copy button.
+- **Lightweight & Secure:** Built with Manifest V3 — minimal permissions (`activeTab`, `clipboardWrite`, `scripting`, `storage`).
+- **i18n:** Fully localized in English, Portuguese (PT), and Brazilian Portuguese (PT-BR).
 
-## 🚀 Como instalar
+## 🚀 Installation
 
-### Chrome Web Store (Recomendado)
+### Chrome Web Store (Recommended)
 
-Instale diretamente pela [Chrome Web Store](https://chromewebstore.google.com/detail/bbbgfepehfgaopbfeccedcmcfijofbfn).
+Install directly from the [Chrome Web Store](https://chromewebstore.google.com/detail/bbbgfepehfgaopbfeccedcmcfijofbfn).
 
-### Modo Desenvolvedor
+### Developer Mode
 
-1. Clone este repositório:
+1. Clone this repository:
    ```bash
-   git clone https://github.com/lucaslourenco/fast-copy.git
+   git clone https://github.com/lucas-lourencoo/fast-copy.git
+   cd fast-copy
    ```
-2. Abra `chrome://extensions/`
-3. Ative o **Modo do Desenvolvedor** (canto superior direito).
-4. Clique em **Carregar sem compactação** e selecione a pasta `fast-copy`.
+2. Install dependencies and build:
+   ```bash
+   npm install
+   npm run build
+   ```
+3. Open `chrome://extensions/`
+4. Enable **Developer Mode** (top right corner).
+5. Click **Load unpacked** and select the `dist/` folder.
 
-## ⌨️ Como Usar
+## ⌨️ How to Use
 
-- **No Windows/Linux:** Pressione `Ctrl + Shift + U`
-- **No macOS:** Pressione `Cmd + Shift + U`
+### Copy URL
 
-Após o uso, você verá uma notificação "Link Copiado!" no topo central da tela, e o link já estará na sua área de transferência.
+- **Windows/Linux:** `Ctrl + Shift + U`
+- **macOS:** `Cmd + Shift + U`
 
-### Regras de URL (Regex)
+A "Link Copied!" toast appears at the top of the page and the link is in your clipboard.
 
-Você pode definir regras para copiar apenas uma parte específica da URL, baseado em domínio + regex:
+### Copy History
 
-1. Clique no ícone ⚙️ no popup da extensão (ou acesse as opções via `chrome://extensions`)
-2. Adicione uma regra com domínio (ex: `github.com`) e padrão regex com capture group (ex: `github\.com\/([^\/]+\/[^\/]+)`)
-3. Quando você copiar uma URL que dê match, apenas o conteúdo do primeiro grupo de captura será copiado
+- **Windows/Linux:** `Ctrl + Shift + Y`
+- **macOS:** `Cmd + Shift + Y`
 
-Se os atalhos não estiverem funcionando porque entram em conflito com outra extensão, você pode alterar o atalho padrão do Fast Copy acessando `chrome://extensions/shortcuts`.
+Opens a floating overlay on the current page showing your last 10 copied URLs. Use `↑↓` to navigate, `Enter` to select and paste, or `Esc` to close. If you were typing in an input field, the selected URL is automatically pasted at the cursor position.
 
-## 🛠 Tecnologias
+### URL Rules (Regex)
 
-- HTML5 / CSS3 (Design minimalista Glassmorphic)
-- Vanilla JavaScript
+You can define rules to copy only a specific part of the URL, matched by domain + regex:
+
+1. Click the ⚙️ icon in the popup (or access options via `chrome://extensions`)
+2. Add a rule with a domain (e.g., `github.com`) and a regex pattern with a capture group (e.g., `github\.com\/([^\/]+\/[^\/]+)`)
+3. When you copy a matching URL, only the first capture group is copied
+
+If shortcuts conflict with another extension, customize them at `chrome://extensions/shortcuts`.
+
+## 🛠 Tech Stack
+
+- **TypeScript** compiled by **Vite** (output in `dist/`)
 - Chrome Extensions API (Manifest V3)
+- Glassmorphic CSS design
+- `chrome.i18n` for localization (`public/_locales/`)
 
-## 🔒 Privacidade
+### Development
 
-O **Fast Copy** respeita sua privacidade e opera de forma 100% local. Para mais detalhes, leia nossa [Política de Privacidade](PRIVACY.md).
+```bash
+npm run dev        # Watch mode (auto-rebuild on change)
+npm run build      # Production build (typecheck + bundle)
+npm run typecheck  # TypeScript type checking only
+```
 
-## 📄 Licença
+## 🔒 Privacy
 
-Distribuído sob a licença MIT. Sinta-se à vontade para utilizar, modificar e distribuir o código.
+**Fast Copy** respects your privacy and operates 100% locally. For details, read our [Privacy Policy](PRIVACY.md).
+
+## 📄 License
+
+Distributed under the MIT License. Feel free to use, modify, and distribute the code.

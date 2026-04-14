@@ -228,6 +228,9 @@
     "message": "Regras de URL"
   },
   "onboardStep4Label": {
+    "message": "Histórico"
+  },
+  "onboardStep5Label": {
     "message": "Concluído"
   },
   "onboardShortcutEyebrow": {
@@ -247,6 +250,9 @@
   },
   "onboardRegexDesc": {
     "message": "Crie regras regex para extrair automaticamente apenas a parte do URL que precisa — como nomes de repositórios, IDs de tickets ou números de encomendas."
+  },
+  "onboardHistoryEyebrow": {
+    "message": "Passo 4"
   },
   "onboardQuickRuleTitle": {
     "message": "Adicione a sua primeira regra (opcional)"
@@ -283,5 +289,11 @@
   },
   "historyCloseHint": {
     "message": "↑↓ navegar · Enter para selecionar"
+  },
+  "onboardHistoryTitle": {
+    "message": "Histórico de Cópias"
+  },
+  "onboardHistoryDesc": {
+    "message": "Aceda aos seus últimos 10 links copiados instantaneamente. Navegue com as setas, pressione Enter para selecionar e colar."
   }
 }
