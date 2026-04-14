@@ -30,6 +30,7 @@ icons/             → Ícones da extensão (16, 48, 128)
 - Strings de UI via `chrome.i18n` (chaves em `_locales/`)
 - Sem dependências externas
 - **Sem comentários no código** — o código deve ser autoexplicativo; comentários inline e de bloco não devem ser adicionados
+- **Versionamento obrigatório** — toda alteração de feature deve incluir o bump de `version` em `manifest.json` (seguindo SemVer: patch para correções, minor para novas features, major para breaking changes)
 - Licença MIT
 
 ## Pontos de Atenção
