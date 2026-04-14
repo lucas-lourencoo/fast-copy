@@ -48,6 +48,10 @@ chrome.commands.onCommand.addListener(async (command, callbackTab) => {
   }
 
   if (command === "copy-url") {
+    await chrome.scripting.executeScript({
+      target: { tabId: tab.id },
+      func: ensureMouseTracking,
+    });
     await handleCopyUrl(tab);
   }
 
@@ -150,6 +154,15 @@ async function handleCopyUrl(tab: chrome.tabs.Tab): Promise<void> {
   }
 }
 
+function ensureMouseTracking(): void {
+  if (!(window as any).__fastCopyMouseTracking) {
+    document.addEventListener("mousemove", (e: MouseEvent) => {
+      (window as any).__fastCopyMousePos = { x: e.clientX, y: e.clientY };
+    });
+    (window as any).__fastCopyMouseTracking = true;
+  }
+}
+
 function showHistoryOverlay(
   entries: {
     url: string;
@@ -199,6 +212,13 @@ function showHistoryOverlay(
     focusedEl.blur();
   }
 
+  if (!(window as any).__fastCopyMouseTracking) {
+    document.addEventListener("mousemove", (e: MouseEvent) => {
+      (window as any).__fastCopyMousePos = { x: e.clientX, y: e.clientY };
+    });
+    (window as any).__fastCopyMouseTracking = true;
+  }
+
   const mousePos = (() => {
     const stored = (window as any).__fastCopyMousePos;
     if (stored) return stored as { x: number; y: number };
@@ -210,15 +230,17 @@ function showHistoryOverlay(
       return { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 };
     }
 
+    const sel = window.getSelection();
+    if (sel && sel.rangeCount > 0) {
+      const range = sel.getRangeAt(0);
+      const rect = range.getBoundingClientRect();
+      if (rect.width > 0 || rect.height > 0) {
+        return { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 };
+      }
+    }
+
     return { x: window.innerWidth / 2, y: window.innerHeight / 3 };
   })();
-
-  if (!(window as any).__fastCopyMouseTracking) {
-    document.addEventListener("mousemove", (e: MouseEvent) => {
-      (window as any).__fastCopyMousePos = { x: e.clientX, y: e.clientY };
-    });
-    (window as any).__fastCopyMouseTracking = true;
-  }
 
   const root = document.createElement("div");
   root.id = "fast-copy-history-root";

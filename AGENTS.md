@@ -45,7 +45,7 @@ dist/                → Output do build (Vite), carregado no Chrome via Load Un
 - Strings de UI via `chrome.i18n` (chaves em `public/_locales/`)
 - Apenas devDependencies (vite, typescript, @types/chrome); sem dependências de runtime
 - **Sem comentários no código** — o código deve ser autoexplicativo; comentários inline e de bloco não devem ser adicionados
-- **Versionamento obrigatório** — toda alteração de feature deve incluir o bump de `version` em `manifest.json` (seguindo SemVer: patch para correções, minor para novas features, major para breaking changes)
+- **Versionamento obrigatório** — toda alteração de feature deve incluir o bump de `version` em `manifest.json` **e** `package.json` (seguindo SemVer: patch para correções, minor para novas features, major para breaking changes)
 - Licença MIT
 
 ## Pontos de Atenção
