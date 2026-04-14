@@ -308,7 +308,7 @@
         width: 100%;
         max-width: 720px;
         padding: 0 24px;
-        margin: 24px auto 80px;
+        margin: 24px auto 64px;
       }
 
       .steps-grid {
@@ -423,6 +423,267 @@
         background: rgba(255, 255, 255, 0.1);
         color: #fff;
         border-color: rgba(102, 126, 234, 0.3);
+      }
+
+      /* --- Regex Feature Section --- */
+      .regex-section {
+        width: 100%;
+        max-width: 720px;
+        padding: 0 24px;
+        margin: 0 auto 64px;
+      }
+
+      .regex-section h2 {
+        text-align: center;
+        font-size: 14px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: #764ba2;
+        margin-bottom: 12px;
+      }
+
+      .regex-section .section-desc {
+        text-align: center;
+        font-size: 15px;
+        color: #8888a0;
+        line-height: 1.6;
+        max-width: 520px;
+        margin: 0 auto 28px;
+      }
+
+      .regex-demo-card {
+        background: #1a1a2e;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow:
+          0 20px 80px rgba(0, 0, 0, 0.5),
+          0 4px 20px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      .regex-demo-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 14px 18px;
+        background: #161625;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .regex-demo-header svg {
+        width: 16px;
+        height: 16px;
+        color: #764ba2;
+        flex-shrink: 0;
+      }
+
+      .regex-demo-header span {
+        font-size: 13px;
+        font-weight: 600;
+        color: #a8b4f0;
+      }
+
+      .regex-demo-body {
+        padding: 28px 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        background: radial-gradient(
+          ellipse at 50% 80%,
+          #1e1e38 0%,
+          #0d0d12 70%
+        );
+      }
+
+      .regex-demo-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .regex-demo-label {
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        color: #555570;
+        min-width: 64px;
+        flex-shrink: 0;
+      }
+
+      .regex-demo-url {
+        flex: 1;
+        font-family: "SF Mono", "Fira Code", "Cascadia Code", monospace;
+        font-size: 13px;
+        padding: 10px 14px;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+
+      .regex-demo-url.url-full {
+        color: #7a7a96;
+      }
+
+      .regex-demo-url.url-full .url-highlight {
+        color: #a8b4f0;
+        font-weight: 600;
+      }
+
+      .regex-demo-arrow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 4px 0;
+      }
+
+      .regex-demo-arrow svg {
+        width: 20px;
+        height: 20px;
+        color: #38ef7d;
+        animation: arrow-pulse 2s ease-in-out infinite;
+      }
+
+      @keyframes arrow-pulse {
+        0%,
+        100% {
+          opacity: 0.5;
+          transform: translateY(0);
+        }
+        50% {
+          opacity: 1;
+          transform: translateY(3px);
+        }
+      }
+
+      .regex-demo-url.url-result {
+        color: #38ef7d;
+        font-weight: 600;
+        background: rgba(56, 239, 125, 0.06);
+        border-color: rgba(56, 239, 125, 0.15);
+        animation: result-glow 3s ease-in-out infinite;
+      }
+
+      @keyframes result-glow {
+        0%,
+        100% {
+          box-shadow: none;
+        }
+        50% {
+          box-shadow: 0 0 20px rgba(56, 239, 125, 0.08);
+        }
+      }
+
+      .regex-demo-rule {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        background: rgba(118, 75, 162, 0.1);
+        border: 1px solid rgba(118, 75, 162, 0.2);
+        border-radius: 8px;
+        font-family: "SF Mono", "Fira Code", "Cascadia Code", monospace;
+        font-size: 12px;
+        color: #b89cdb;
+        margin-left: 76px;
+      }
+
+      .regex-demo-rule svg {
+        width: 14px;
+        height: 14px;
+        color: #764ba2;
+        flex-shrink: 0;
+      }
+
+      .regex-steps-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin-top: 24px;
+      }
+
+      .regex-step-card {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 14px;
+        padding: 20px 16px;
+        text-align: center;
+        transition: all 0.3s ease;
+      }
+
+      .regex-step-card:hover {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(118, 75, 162, 0.2);
+        transform: translateY(-2px);
+      }
+
+      .regex-step-icon {
+        font-size: 24px;
+        margin-bottom: 12px;
+      }
+
+      .regex-step-card h3 {
+        font-size: 14px;
+        font-weight: 600;
+        color: #e0e0e8;
+        margin-bottom: 6px;
+      }
+
+      .regex-step-card p {
+        font-size: 12px;
+        color: #6a6a82;
+        line-height: 1.5;
+      }
+
+      .regex-cta {
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      .regex-cta-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 24px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #fff;
+        text-decoration: none;
+        border-radius: 50px;
+        font-size: 14px;
+        font-weight: 600;
+        transition: all 0.2s ease;
+        box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+      }
+
+      .regex-cta-link:hover {
+        transform: translateY(-2px) scale(1.03);
+        box-shadow: 0 8px 32px rgba(102, 126, 234, 0.45);
+      }
+
+      .regex-cta-link svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      @media (max-width: 600px) {
+        .regex-steps-grid {
+          grid-template-columns: 1fr;
+        }
+        .regex-demo-rule {
+          margin-left: 0;
+        }
+        .regex-demo-row {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 6px;
+        }
+        .regex-demo-url {
+          width: 100%;
+        }
       }
 
       /* ── Donate section ── */
@@ -596,9 +857,9 @@
           </div>
 
           <div class="shortcut-keys" id="demoShortcutKeys">
-            <span class="key">Shift</span>
-            <span class="key-plus">+</span>
             <span class="key">Ctrl</span>
+            <span class="key-plus">+</span>
+            <span class="key">Shift</span>
             <span class="key-plus">+</span>
             <span class="key">U</span>
           </div>
@@ -628,7 +889,7 @@
           <div class="step-number">2</div>
           <h3 data-i18n="welcomeStep2Title">Press the shortcut</h3>
           <p data-i18n="welcomeStep2Desc">
-            Use Ctrl + Shift + C to copy the URL.
+            Use Ctrl + Shift + U to copy the URL.
           </p>
         </div>
         <div class="step-card">
@@ -638,6 +899,124 @@
             The URL is now in your clipboard. Paste it anywhere you like.
           </p>
         </div>
+      </div>
+    </section>
+
+    <section class="regex-section">
+      <h2 data-i18n="welcomeRegexTitle">Smart URL Extraction</h2>
+      <p class="section-desc" data-i18n="welcomeRegexSubtitle">
+        Create regex rules to automatically extract only the part of the URL you
+        need — like ticket IDs, repo names, or order numbers.
+      </p>
+
+      <div class="regex-demo-card">
+        <div class="regex-demo-header">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <polyline points="16 18 22 12 16 6"></polyline>
+            <polyline points="8 6 2 12 8 18"></polyline>
+          </svg>
+          <span data-i18n="welcomeRegexDemoLabel"
+            >Example: GitHub Repository</span
+          >
+        </div>
+        <div class="regex-demo-body">
+          <div class="regex-demo-row">
+            <span class="regex-demo-label">URL</span>
+            <div class="regex-demo-url url-full">
+              https://github.com/<span class="url-highlight"
+                >facebook/react</span
+              >/issues/12345
+            </div>
+          </div>
+          <div class="regex-demo-rule">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="m21 21-4.3-4.3"></path>
+            </svg>
+            regex: github\.com\/([^\/]+\/[^\/]+)
+          </div>
+          <div class="regex-demo-arrow">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M12 5v14"></path>
+              <path d="m19 12-7 7-7-7"></path>
+            </svg>
+          </div>
+          <div class="regex-demo-row">
+            <span class="regex-demo-label" data-i18n="welcomeRegexCopied"
+              >Copied</span
+            >
+            <div class="regex-demo-url url-result">facebook/react</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="regex-steps-grid">
+        <div class="regex-step-card">
+          <div class="regex-step-icon">🌐</div>
+          <h3 data-i18n="welcomeRegexStep1Title">Set domain</h3>
+          <p data-i18n="welcomeRegexStep1Desc">
+            Choose which website the rule applies to.
+          </p>
+        </div>
+        <div class="regex-step-card">
+          <div class="regex-step-icon">🔍</div>
+          <h3 data-i18n="welcomeRegexStep2Title">Write pattern</h3>
+          <p data-i18n="welcomeRegexStep2Desc">
+            Define a regex to capture the part you want.
+          </p>
+        </div>
+        <div class="regex-step-card">
+          <div class="regex-step-icon">⚡</div>
+          <h3 data-i18n="welcomeRegexStep3Title">Copy smarter</h3>
+          <p data-i18n="welcomeRegexStep3Desc">
+            The shortcut now copies only the extracted value.
+          </p>
+        </div>
+      </div>
+
+      <div class="regex-cta">
+        <a
+          href="options.html"
+          target="_blank"
+          class="regex-cta-link"
+          data-i18n="welcomeRegexCta"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"
+            ></path>
+            <circle cx="12" cy="12" r="3"></circle>
+          </svg>
+          Configure Rules
+        </a>
       </div>
     </section>
 

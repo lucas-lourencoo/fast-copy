@@ -74,6 +74,39 @@
   "welcomeStep3Desc": {
     "message": "A URL já está na sua área de transferência. Cole onde quiser."
   },
+  "welcomeRegexTitle": {
+    "message": "Extração Inteligente de URLs"
+  },
+  "welcomeRegexSubtitle": {
+    "message": "Crie regras regex para extrair automaticamente só a parte da URL que você precisa — como IDs de chamados, nomes de repositórios ou números de pedidos."
+  },
+  "welcomeRegexDemoLabel": {
+    "message": "Exemplo: Repositório GitHub"
+  },
+  "welcomeRegexCopied": {
+    "message": "Copiado"
+  },
+  "welcomeRegexStep1Title": {
+    "message": "Defina o domínio"
+  },
+  "welcomeRegexStep1Desc": {
+    "message": "Escolha em qual site a regra se aplica."
+  },
+  "welcomeRegexStep2Title": {
+    "message": "Escreva o padrão"
+  },
+  "welcomeRegexStep2Desc": {
+    "message": "Defina um regex para capturar a parte que você quer."
+  },
+  "welcomeRegexStep3Title": {
+    "message": "Copie mais rápido"
+  },
+  "welcomeRegexStep3Desc": {
+    "message": "O atalho agora copia só o valor extraído."
+  },
+  "welcomeRegexCta": {
+    "message": "Configurar Regras"
+  },
   "welcomeFooter": {
     "message": "Feito com ♥ por Lucas Lourenço"
   },

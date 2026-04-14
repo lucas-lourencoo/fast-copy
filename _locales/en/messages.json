@@ -74,6 +74,39 @@
   "welcomeStep3Desc": {
     "message": "The URL is now in your clipboard. Paste it anywhere you like."
   },
+  "welcomeRegexTitle": {
+    "message": "Smart URL Extraction"
+  },
+  "welcomeRegexSubtitle": {
+    "message": "Create regex rules to automatically extract only the part of the URL you need — like ticket IDs, repo names, or order numbers."
+  },
+  "welcomeRegexDemoLabel": {
+    "message": "Example: GitHub Repository"
+  },
+  "welcomeRegexCopied": {
+    "message": "Copied"
+  },
+  "welcomeRegexStep1Title": {
+    "message": "Set domain"
+  },
+  "welcomeRegexStep1Desc": {
+    "message": "Choose which website the rule applies to."
+  },
+  "welcomeRegexStep2Title": {
+    "message": "Write pattern"
+  },
+  "welcomeRegexStep2Desc": {
+    "message": "Define a regex to capture the part you want."
+  },
+  "welcomeRegexStep3Title": {
+    "message": "Copy smarter"
+  },
+  "welcomeRegexStep3Desc": {
+    "message": "The shortcut now copies only the extracted value."
+  },
+  "welcomeRegexCta": {
+    "message": "Configure Rules"
+  },
   "welcomeFooter": {
     "message": "Made with ♥ by Lucas Lourenço"
   },
