@@ -2,6 +2,7 @@ import { resolve } from "path";
 import { renameSync, mkdirSync, rmSync, existsSync } from "fs";
 import { defineConfig, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
 
 function flattenHtmlPlugin(): Plugin {
   return {
@@ -26,7 +27,7 @@ function flattenHtmlPlugin(): Plugin {
 
 export default defineConfig({
   root: "src",
-  plugins: [react(), flattenHtmlPlugin()],
+  plugins: [tailwindcss(), react(), flattenHtmlPlugin()],
   build: {
     outDir: resolve(__dirname, "dist"),
     emptyOutDir: true,

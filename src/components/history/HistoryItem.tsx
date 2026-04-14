@@ -53,27 +53,58 @@ export function HistoryItem({ entry, index }: HistoryItemProps) {
   const displayText = truncate(entry.copiedText, 50);
 
   return (
-    <div className="history-item" data-index={index}>
-      <div className="history-item-top">
-        <span className="history-time">{time}</span>
-        {entry.isPartial && <span className="badge-partial">regex</span>}
+    <div
+      className="relative bg-[rgba(0,0,0,0.04)] dark:bg-[rgba(255,255,255,0.06)] border border-[rgba(0,0,0,0.08)] dark:border-[rgba(255,255,255,0.08)] rounded-[10px] py-3 pl-[14px] pr-11 transition-all duration-200 hover:bg-[rgba(0,0,0,0.06)] dark:hover:bg-[rgba(255,255,255,0.08)] hover:border-[rgba(102,126,234,0.2)]"
+      data-index={index}
+    >
+      <div className="flex items-center gap-[6px] mb-1">
+        <span className="text-[10px] uppercase tracking-[0.5px] text-[#5a5a7a] dark:text-[#8b8ba3] font-semibold">
+          {time}
+        </span>
+        {entry.isPartial && (
+          <span className="text-[9px] uppercase tracking-[0.5px] px-[5px] py-px rounded bg-indigo-500/[0.12] text-[#818cf8] font-bold">
+            regex
+          </span>
+        )}
       </div>
-      <div className="history-copied-text" title={entry.copiedText}>
+      <div
+        className="text-[13px] font-semibold text-[#1a1a2e] dark:text-[#e0e0e0] leading-[1.3] break-all"
+        title={entry.copiedText}
+      >
         {displayText}
       </div>
-      <div className="history-source-url" title={entry.url}>
+      <div
+        className="text-[11px] text-[#5a5a7a] dark:text-[#8b8ba3] mt-[3px] break-all leading-[1.3]"
+        title={entry.url}
+      >
         {displayUrl}
       </div>
       <button
-        className={`history-copy-btn${copied ? " copied" : ""}`}
+        className={`absolute right-[10px] top-1/2 -translate-y-1/2 w-7 h-7 border-none rounded-md bg-transparent cursor-pointer flex items-center justify-center transition-all duration-200 hover:bg-[rgba(0,0,0,0.06)] dark:hover:bg-[rgba(255,255,255,0.08)] hover:text-[#667eea] ${copied ? "text-[#22c55e]" : "text-[#5a5a7a] dark:text-[#8b8ba3]"}`}
         onClick={handleCopy}
       >
         {copied ? (
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="w-[14px] h-[14px]"
+          >
             <polyline points="20 6 9 17 4 12"></polyline>
           </svg>
         ) : (
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="w-[14px] h-[14px]"
+          >
             <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
             <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
           </svg>
