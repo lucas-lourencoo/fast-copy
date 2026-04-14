@@ -217,5 +217,56 @@
   },
   "rulesTitle": {
     "message": "Rules"
+  },
+  "onboardStep1Label": {
+    "message": "Welcome"
+  },
+  "onboardStep2Label": {
+    "message": "Shortcut"
+  },
+  "onboardStep3Label": {
+    "message": "URL Rules"
+  },
+  "onboardStep4Label": {
+    "message": "Done"
+  },
+  "onboardShortcutEyebrow": {
+    "message": "Step 2"
+  },
+  "onboardShortcutTitle": {
+    "message": "Your shortcut is ready"
+  },
+  "onboardShortcutDesc": {
+    "message": "Press this combination on any page to instantly copy its URL to your clipboard."
+  },
+  "onboardRegexEyebrow": {
+    "message": "Step 3"
+  },
+  "onboardRegexTitle": {
+    "message": "Smart URL Extraction"
+  },
+  "onboardRegexDesc": {
+    "message": "Create regex rules to automatically extract only the part of the URL you need — like repo names, ticket IDs, or order numbers."
+  },
+  "onboardQuickRuleTitle": {
+    "message": "Add your first rule (optional)"
+  },
+  "onboardSkipRule": {
+    "message": "Skip for now"
+  },
+  "onboardRuleSaved": {
+    "message": "Rule saved! You can manage your rules anytime in the extension options."
+  },
+  "onboardAllSetTitle": {
+    "message": "All set!"
+  },
+  "onboardAllSetDesc": {
+    "message": "Fast Copy is ready to use. Press your shortcut on any tab and the URL is instantly in your clipboard."
+  },
+  "onboardBack": {
+    "message": "Back"
+  },
+  "onboardNext": {
+    "message": "Next"
   }
 }

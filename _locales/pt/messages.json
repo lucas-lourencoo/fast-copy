@@ -217,5 +217,56 @@
   },
   "rulesTitle": {
     "message": "Regras"
+  },
+  "onboardStep1Label": {
+    "message": "Bem-vindo"
+  },
+  "onboardStep2Label": {
+    "message": "Atalho"
+  },
+  "onboardStep3Label": {
+    "message": "Regras de URL"
+  },
+  "onboardStep4Label": {
+    "message": "Concluído"
+  },
+  "onboardShortcutEyebrow": {
+    "message": "Passo 2"
+  },
+  "onboardShortcutTitle": {
+    "message": "O seu atalho está pronto"
+  },
+  "onboardShortcutDesc": {
+    "message": "Prima esta combinação em qualquer página para copiar o URL instantaneamente para a área de transferência."
+  },
+  "onboardRegexEyebrow": {
+    "message": "Passo 3"
+  },
+  "onboardRegexTitle": {
+    "message": "Extração Inteligente de URLs"
+  },
+  "onboardRegexDesc": {
+    "message": "Crie regras regex para extrair automaticamente apenas a parte do URL que precisa — como nomes de repositórios, IDs de tickets ou números de encomendas."
+  },
+  "onboardQuickRuleTitle": {
+    "message": "Adicione a sua primeira regra (opcional)"
+  },
+  "onboardSkipRule": {
+    "message": "Saltar por agora"
+  },
+  "onboardRuleSaved": {
+    "message": "Regra guardada! Pode gerir as suas regras a qualquer momento nas opções da extensão."
+  },
+  "onboardAllSetTitle": {
+    "message": "Tudo pronto!"
+  },
+  "onboardAllSetDesc": {
+    "message": "O Fast Copy está pronto a usar. Prima o atalho em qualquer separador e o URL é copiado de imediato."
+  },
+  "onboardBack": {
+    "message": "Voltar"
+  },
+  "onboardNext": {
+    "message": "Avançar"
   }
 }
