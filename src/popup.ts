@@ -1,17 +1,24 @@
+import {
+  applyUrlRules,
+  HISTORY_KEY,
+  HISTORY_MAX,
+  type CopyHistoryEntry,
+} from "./shared";
+
 document.addEventListener("DOMContentLoaded", async () => {
-  document.querySelectorAll("[data-i18n]").forEach((el) => {
-    const msg = chrome.i18n.getMessage(el.dataset.i18n);
+  document.querySelectorAll<HTMLElement>("[data-i18n]").forEach((el) => {
+    const msg = chrome.i18n.getMessage(el.dataset.i18n!);
     if (msg) el.textContent = msg;
   });
 
-  const urlText = document.getElementById("currentUrl");
-  const copyBtn = document.getElementById("copyBtn");
-  const copyBtnText = document.getElementById("copyText");
-  const copyIcon = document.getElementById("copyIcon");
-  const matchPreview = document.getElementById("matchPreview");
-  const matchPreviewText = document.getElementById("matchPreviewText");
-  const matchRuleName = document.getElementById("matchRuleName");
-  const noMatchSpacer = document.getElementById("noMatchSpacer");
+  const urlText = document.getElementById("currentUrl")!;
+  const copyBtn = document.getElementById("copyBtn")!;
+  const copyBtnText = document.getElementById("copyText")!;
+  const copyIcon = document.getElementById("copyIcon")!;
+  const matchPreview = document.getElementById("matchPreview")!;
+  const matchPreviewText = document.getElementById("matchPreviewText")!;
+  const matchRuleName = document.getElementById("matchRuleName")!;
+  const noMatchSpacer = document.getElementById("noMatchSpacer")!;
   const openOptionsBtn = document.getElementById("openOptionsBtn");
 
   const msgUnavailable = chrome.i18n.getMessage("popupUrlUnavailable");
@@ -28,7 +35,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (chrome.commands && chrome.commands.getAll) {
     chrome.commands.getAll((commands) => {
       const copyCommand = commands.find((c) => c.name === "copy-url");
-      if (copyCommand && copyCommand.shortcut) {
+      if (copyCommand && copyCommand.shortcut && shortcutDisplay) {
         const keys = copyCommand.shortcut.split("+");
         const formattedKeys = keys.map((key) => {
           let displayKey = key.trim();
@@ -58,6 +65,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   let textToCopy = "";
+  let currentTabUrl = "";
+  let isPartialCopy = false;
 
   try {
     const [tab] = await chrome.tabs.query({
@@ -65,25 +74,27 @@ document.addEventListener("DOMContentLoaded", async () => {
       currentWindow: true,
     });
     if (tab?.url) {
+      currentTabUrl = tab.url;
       urlText.textContent = tab.url;
       textToCopy = tab.url;
 
       const result = await applyUrlRules(tab.url);
       if (result.isPartial) {
         textToCopy = result.text;
+        isPartialCopy = true;
         matchPreviewText.textContent = result.text;
         if (result.label) {
           matchRuleName.textContent = result.label;
         }
         matchPreview.classList.add("visible");
-        noMatchSpacer.style.display = "none";
+        (noMatchSpacer as HTMLElement).style.display = "none";
       } else {
-        noMatchSpacer.style.display = "block";
+        (noMatchSpacer as HTMLElement).style.display = "block";
       }
     } else {
       urlText.textContent = msgUnavailable;
     }
-  } catch (err) {
+  } catch (_err) {
     urlText.textContent = msgError;
   }
 
@@ -94,7 +105,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     try {
       await navigator.clipboard.writeText(textToCopy);
       showCopiedState();
-    } catch (err) {
+    } catch (_err) {
       const textarea = document.createElement("textarea");
       textarea.value = textToCopy;
       textarea.style.position = "fixed";
@@ -105,9 +116,30 @@ document.addEventListener("DOMContentLoaded", async () => {
       document.body.removeChild(textarea);
       showCopiedState();
     }
+
+    try {
+      const result = await chrome.storage.local.get([HISTORY_KEY]);
+      const history: CopyHistoryEntry[] =
+        (result[HISTORY_KEY] as CopyHistoryEntry[] | undefined) || [];
+
+      history.unshift({
+        url: currentTabUrl,
+        copiedText: textToCopy,
+        isPartial: isPartialCopy,
+        timestamp: Date.now(),
+      });
+
+      if (history.length > HISTORY_MAX) {
+        history.length = HISTORY_MAX;
+      }
+
+      await chrome.storage.local.set({ [HISTORY_KEY]: history });
+    } catch (_err) {
+      console.error("[Fast Copy] popup: failed to save history", _err);
+    }
   });
 
-  function showCopiedState() {
+  function showCopiedState(): void {
     copyBtn.classList.add("copied");
     copyBtnText.textContent = msgCopied;
     copyIcon.innerHTML = '<polyline points="20 6 9 17 4 12"></polyline>';
@@ -122,30 +154,3 @@ document.addEventListener("DOMContentLoaded", async () => {
     }, 2000);
   }
 });
-
-async function applyUrlRules(url) {
-  try {
-    const { urlRules = [] } = await chrome.storage.sync.get("urlRules");
-    if (!urlRules.length) return { text: url, isPartial: false };
-
-    const urlObj = new URL(url);
-    const hostname = urlObj.hostname;
-
-    for (const rule of urlRules) {
-      if (!rule.enabled) continue;
-      if (!hostname.includes(rule.domain)) continue;
-
-      try {
-        const regex = new RegExp(rule.regex);
-        const match = url.match(regex);
-        if (match && match[1]) {
-          return { text: match[1], isPartial: true, label: rule.label };
-        }
-      } catch (e) {}
-    }
-
-    return { text: url, isPartial: false };
-  } catch (e) {
-    return { text: url, isPartial: false };
-  }
-}

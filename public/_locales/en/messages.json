@@ -268,5 +268,20 @@
   },
   "onboardNext": {
     "message": "Next"
+  },
+  "historyTitle": {
+    "message": "Copy History"
+  },
+  "historyClear": {
+    "message": "Clear"
+  },
+  "historyEmpty": {
+    "message": "No copies yet. Use the shortcut to copy a URL and it will appear here."
+  },
+  "historyJustNow": {
+    "message": "Just now"
+  },
+  "historyCloseHint": {
+    "message": "↑↓ navigate · Enter to select"
   }
 }

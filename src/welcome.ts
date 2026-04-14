@@ -2,8 +2,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const hasChromeI18n = typeof chrome !== "undefined" && chrome.i18n;
 
   if (hasChromeI18n) {
-    document.querySelectorAll("[data-i18n]").forEach((el) => {
-      const msg = chrome.i18n.getMessage(el.dataset.i18n);
+    document.querySelectorAll<HTMLElement>("[data-i18n]").forEach((el) => {
+      const msg = chrome.i18n.getMessage(el.dataset.i18n!);
       if (msg) el.textContent = msg;
     });
   }
@@ -12,13 +12,13 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentStep = 0;
   let ruleSaved = false;
 
-  const screens = document.querySelectorAll(".step-screen");
-  const progressSteps = document.querySelectorAll(".progress-step");
-  const btnBack = document.getElementById("btnBack");
-  const btnNext = document.getElementById("btnNext");
-  const stepIndicator = document.getElementById("stepIndicator");
+  const screens = document.querySelectorAll<HTMLElement>(".step-screen");
+  const progressSteps = document.querySelectorAll<HTMLElement>(".progress-step");
+  const btnBack = document.getElementById("btnBack") as HTMLButtonElement;
+  const btnNext = document.getElementById("btnNext") as HTMLButtonElement;
+  const stepIndicator = document.getElementById("stepIndicator")!;
 
-  function updateUI() {
+  function updateUI(): void {
     screens.forEach((s, i) => s.classList.toggle("active", i === currentStep));
 
     progressSteps.forEach((s, i) => {
@@ -88,18 +88,20 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  const quickDomain = document.getElementById("quickDomain");
-  const quickRegex = document.getElementById("quickRegex");
-  const quickDomainError = document.getElementById("quickDomainError");
-  const quickRegexError = document.getElementById("quickRegexError");
+  const quickDomain = document.getElementById("quickDomain") as HTMLInputElement;
+  const quickRegex = document.getElementById("quickRegex") as HTMLInputElement;
+  const quickDomainError = document.getElementById("quickDomainError")!;
+  const quickRegexError = document.getElementById("quickRegexError")!;
   const saveQuickRuleBtn = document.getElementById("saveQuickRuleBtn");
-  const ruleSavedMsg = document.getElementById("ruleSavedMsg");
+  const ruleSavedMsg = document.getElementById("ruleSavedMsg")!;
 
-  function isDomainValid(val) {
-    return /^[a-zA-Z0-9][a-zA-Z0-9-]{0,61}[a-zA-Z0-9]?\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?$/.test(val.trim());
+  function isDomainValid(val: string): boolean {
+    return /^[a-zA-Z0-9][a-zA-Z0-9-]{0,61}[a-zA-Z0-9]?\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?$/.test(
+      val.trim()
+    );
   }
 
-  function isRegexValid(val) {
+  function isRegexValid(val: string): boolean {
     try {
       new RegExp(val.trim());
       return val.trim().length > 0;
@@ -146,7 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       chrome.storage.sync.get(["urlRules"], (result) => {
-        const rules = result.urlRules || [];
+        const rules = (result.urlRules as Array<Record<string, unknown>>) || [];
         rules.push({
           id: Date.now().toString(),
           domain: domainVal,
@@ -157,11 +159,6 @@ document.addEventListener("DOMContentLoaded", () => {
         chrome.storage.sync.set({ urlRules: rules }, () => {
           ruleSaved = true;
           ruleSavedMsg.classList.add("visible");
-          saveQuickRuleBtn.innerHTML = `
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px">
-              <path d="m9 18 6-6-6-6"></path>
-            </svg>
-          `;
           const nextLabel = chrome.i18n.getMessage("onboardNext") || "Next";
           saveQuickRuleBtn.innerHTML = `<span>${nextLabel}</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="m9 18 6-6-6-6"></path></svg>`;
           setTimeout(() => {

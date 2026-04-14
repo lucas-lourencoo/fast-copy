@@ -1,6 +1,8 @@
+import { type UrlRule } from "./shared";
+
 document.addEventListener("DOMContentLoaded", async () => {
-  document.querySelectorAll("[data-i18n]").forEach((el) => {
-    const msg = chrome.i18n.getMessage(el.dataset.i18n);
+  document.querySelectorAll<HTMLElement>("[data-i18n]").forEach((el) => {
+    const msg = chrome.i18n.getMessage(el.dataset.i18n!);
     if (!msg) return;
     const star = el.querySelector(".required-star");
     if (star) {
@@ -11,39 +13,40 @@ document.addEventListener("DOMContentLoaded", async () => {
       el.textContent = msg;
     }
   });
-  document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
-    const msg = chrome.i18n.getMessage(el.dataset.i18nPlaceholder);
-    if (msg) el.placeholder = msg;
-  });
+  document
+    .querySelectorAll<HTMLInputElement>("[data-i18n-placeholder]")
+    .forEach((el) => {
+      const msg = chrome.i18n.getMessage(el.dataset.i18nPlaceholder!);
+      if (msg) el.placeholder = msg;
+    });
 
   const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
   if (!isDark) document.body.classList.add("theme-light");
 
-  const inputDomain = document.getElementById("inputDomain");
-  const inputLabel = document.getElementById("inputLabel");
-  const inputRegex = document.getElementById("inputRegex");
-  const regexError = document.getElementById("regexError");
-  const regexErrorText = document.getElementById("regexErrorText");
-  const domainError = document.getElementById("domainError");
-  const saveBtn = document.getElementById("saveBtn");
-  const saveBtnText = document.getElementById("saveBtnText");
-  const cancelBtn = document.getElementById("cancelBtn");
-  const formTitle = document.getElementById("formTitle");
-  const rulesList = document.getElementById("rulesList");
-  const testUrl = document.getElementById("testUrl");
-  const testResult = document.getElementById("testResult");
-  const testResultLabel = document.getElementById("testResultLabel");
-  const testResultValue = document.getElementById("testResultValue");
+  const inputDomain = document.getElementById("inputDomain") as HTMLInputElement;
+  const inputLabel = document.getElementById("inputLabel") as HTMLInputElement;
+  const inputRegex = document.getElementById("inputRegex") as HTMLInputElement;
+  const regexError = document.getElementById("regexError")!;
+  const domainError = document.getElementById("domainError")!;
+  const saveBtn = document.getElementById("saveBtn")!;
+  const saveBtnText = document.getElementById("saveBtnText")!;
+  const cancelBtn = document.getElementById("cancelBtn") as HTMLElement;
+  const formTitle = document.getElementById("formTitle")!;
+  const rulesList = document.getElementById("rulesList")!;
+  const testUrl = document.getElementById("testUrl") as HTMLInputElement;
+  const testResult = document.getElementById("testResult")!;
+  const testResultLabel = document.getElementById("testResultLabel")!;
+  const testResultValue = document.getElementById("testResultValue")!;
 
-  const optionsToast = document.getElementById("optionsToast");
-  const toastIcon = document.getElementById("toastIcon");
-  const toastText = document.getElementById("toastText");
+  const optionsToast = document.getElementById("optionsToast")!;
+  const toastIcon = document.getElementById("toastIcon")!;
+  const toastText = document.getElementById("toastText")!;
 
-  let editingId = null;
-  let rules = [];
-  let toastTimer = null;
+  let editingId: string | null = null;
+  let rules: UrlRule[] = [];
+  let toastTimer: ReturnType<typeof setTimeout> | null = null;
 
-  function showToast(message, type = "success") {
+  function showToast(message: string, type = "success"): void {
     if (toastTimer) clearTimeout(toastTimer);
 
     toastText.textContent = message;
@@ -67,30 +70,32 @@ document.addEventListener("DOMContentLoaded", async () => {
     }, 2500);
   }
 
-  async function loadRules() {
-    const { urlRules = [] } = await chrome.storage.sync.get("urlRules");
+  async function loadRules(): Promise<void> {
+    const { urlRules = [] } = (await chrome.storage.sync.get("urlRules")) as {
+      urlRules: UrlRule[];
+    };
     rules = urlRules;
     renderRules();
   }
 
-  async function saveRules() {
+  async function saveRules(): Promise<void> {
     await chrome.storage.sync.set({ urlRules: rules });
   }
 
-  function generateId() {
+  function generateId(): string {
     return Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
   }
 
-  function isValidRegex(pattern) {
+  function isValidRegex(pattern: string): boolean {
     try {
       new RegExp(pattern);
       return true;
-    } catch (e) {
+    } catch (_e) {
       return false;
     }
   }
 
-  function isValidDomain(domain) {
+  function isValidDomain(domain: string): boolean {
     if (domain === "localhost") return true;
     try {
       const parsed = new URL("https://" + domain);
@@ -100,24 +105,25 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   }
 
-  function isDuplicateRegex(regex, excludeId = null) {
+  function isDuplicateRegex(regex: string, excludeId: string | null = null): boolean {
     return rules.some((r) => r.regex === regex && r.id !== excludeId);
   }
 
-  function setFieldError(input, errorEl, message) {
+  function setFieldError(input: HTMLInputElement, errorEl: HTMLElement, message?: string): void {
     input.classList.add("error");
-    if (message && errorEl.querySelector("span")) {
-      errorEl.querySelector("span").textContent = message;
+    if (message) {
+      const span = errorEl.querySelector("span");
+      if (span) span.textContent = message;
     }
     errorEl.classList.add("visible");
   }
 
-  function clearFieldError(input, errorEl) {
+  function clearFieldError(input: HTMLInputElement, errorEl: HTMLElement): void {
     input.classList.remove("error");
     errorEl.classList.remove("visible");
   }
 
-  function renderRules() {
+  function renderRules(): void {
     if (rules.length === 0) {
       const noRulesMsg =
         chrome.i18n.getMessage("noRules") ||
@@ -172,46 +178,45 @@ document.addEventListener("DOMContentLoaded", async () => {
         </div>
         <div class="rule-regex">${escapeHtml(rule.regex)}</div>
       </div>
-    `,
+    `
       )
       .join("");
 
-    // Bind events
-    rulesList.querySelectorAll("[data-toggle-id]").forEach((el) => {
+    rulesList.querySelectorAll<HTMLInputElement>("[data-toggle-id]").forEach((el) => {
       el.addEventListener("change", async (e) => {
-        const id = e.target.getAttribute("data-toggle-id");
+        const target = e.target as HTMLInputElement;
+        const id = target.getAttribute("data-toggle-id");
         const rule = rules.find((r) => r.id === id);
         if (rule) {
-          rule.enabled = e.target.checked;
+          rule.enabled = target.checked;
           await saveRules();
           renderRules();
         }
       });
     });
 
-    rulesList.querySelectorAll("[data-edit-id]").forEach((el) => {
+    rulesList.querySelectorAll<HTMLButtonElement>("[data-edit-id]").forEach((el) => {
       el.addEventListener("click", () => {
-        const id = el.getAttribute("data-edit-id");
+        const id = el.getAttribute("data-edit-id")!;
         startEdit(id);
       });
     });
 
-    rulesList.querySelectorAll("[data-delete-id]").forEach((el) => {
+    rulesList.querySelectorAll<HTMLButtonElement>("[data-delete-id]").forEach((el) => {
       el.addEventListener("click", async () => {
-        const id = el.getAttribute("data-delete-id");
+        const id = el.getAttribute("data-delete-id")!;
         const deleted = rules.find((r) => r.id === id);
         rules = rules.filter((r) => r.id !== id);
         await saveRules();
         renderRules();
 
-        const msg =
-          chrome.i18n.getMessage("toastRuleDeleted") || "Rule deleted";
+        const msg = chrome.i18n.getMessage("toastRuleDeleted") || "Rule deleted";
         showToast(deleted ? `${msg}: ${deleted.domain}` : msg, "deleted");
       });
     });
   }
 
-  function startEdit(id) {
+  function startEdit(id: string): void {
     const rule = rules.find((r) => r.id === id);
     if (!rule) return;
 
@@ -227,7 +232,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     inputDomain.focus();
   }
 
-  function cancelEdit() {
+  function cancelEdit(): void {
     editingId = null;
     inputDomain.value = "";
     inputLabel.value = "";
@@ -248,14 +253,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     let hasError = false;
 
     if (!domain) {
-      const msg =
-        chrome.i18n.getMessage("fieldRequired") || "This field is required";
+      const msg = chrome.i18n.getMessage("fieldRequired") || "This field is required";
       setFieldError(inputDomain, domainError, msg);
       hasError = true;
     } else if (!isValidDomain(domain)) {
       const msg =
-        chrome.i18n.getMessage("domainInvalid") ||
-        "Enter a valid domain (e.g. github.com)";
+        chrome.i18n.getMessage("domainInvalid") || "Enter a valid domain (e.g. github.com)";
       setFieldError(inputDomain, domainError, msg);
       hasError = true;
     } else {
@@ -263,19 +266,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     if (!regex) {
-      const msg =
-        chrome.i18n.getMessage("fieldRequired") || "This field is required";
+      const msg = chrome.i18n.getMessage("fieldRequired") || "This field is required";
       setFieldError(inputRegex, regexError, msg);
       hasError = true;
     } else if (!isValidRegex(regex)) {
-      const msg =
-        chrome.i18n.getMessage("regexInvalid") || "Invalid regex pattern";
+      const msg = chrome.i18n.getMessage("regexInvalid") || "Invalid regex pattern";
       setFieldError(inputRegex, regexError, msg);
       hasError = true;
     } else if (isDuplicateRegex(regex, editingId)) {
       const msg =
-        chrome.i18n.getMessage("regexDuplicate") ||
-        "This regex pattern already exists";
+        chrome.i18n.getMessage("regexDuplicate") || "This regex pattern already exists";
       setFieldError(inputRegex, regexError, msg);
       hasError = true;
     } else {
@@ -315,7 +315,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   cancelBtn.addEventListener("click", cancelEdit);
 
   [inputDomain, inputLabel, inputRegex].forEach((el) => {
-    el.addEventListener("keydown", (e) => {
+    el.addEventListener("keydown", (e: KeyboardEvent) => {
       if (e.key === "Enter") saveBtn.click();
     });
   });
@@ -325,8 +325,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (!val) return;
     if (!isValidDomain(val)) {
       const msg =
-        chrome.i18n.getMessage("domainInvalid") ||
-        "Enter a valid domain (e.g. github.com)";
+        chrome.i18n.getMessage("domainInvalid") || "Enter a valid domain (e.g. github.com)";
       setFieldError(inputDomain, domainError, msg);
     } else {
       clearFieldError(inputDomain, domainError);
@@ -337,8 +336,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const val = inputRegex.value.trim();
     if (!val) return;
     if (!isValidRegex(val)) {
-      const msg =
-        chrome.i18n.getMessage("regexInvalid") || "Invalid regex pattern";
+      const msg = chrome.i18n.getMessage("regexInvalid") || "Invalid regex pattern";
       setFieldError(inputRegex, regexError, msg);
     } else {
       clearFieldError(inputRegex, regexError);
@@ -352,10 +350,10 @@ document.addEventListener("DOMContentLoaded", async () => {
       return;
     }
 
-    let hostname;
+    let hostname: string;
     try {
       hostname = new URL(url).hostname;
-    } catch (e) {
+    } catch (_e) {
       testResult.classList.remove("visible");
       return;
     }
@@ -377,21 +375,18 @@ document.addEventListener("DOMContentLoaded", async () => {
           matched = true;
           break;
         }
-      } catch (e) {
-        // skip invalid regex
-      }
+      } catch (_e) {}
     }
 
     if (!matched) {
       testResultLabel.textContent =
-        chrome.i18n.getMessage("noMatch") ||
-        "No match — full URL will be copied";
+        chrome.i18n.getMessage("noMatch") || "No match — full URL will be copied";
       testResultValue.textContent = url;
       testResult.className = "test-result visible no-match";
     }
   });
 
-  function escapeHtml(str) {
+  function escapeHtml(str: string): string {
     const div = document.createElement("div");
     div.textContent = str;
     return div.innerHTML;

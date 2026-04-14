@@ -78,7 +78,7 @@
     "message": "Extração Inteligente de URLs"
   },
   "welcomeRegexSubtitle": {
-    "message": "Crie regras regex para extrair automaticamente apenas a parte da URL que precisa — como IDs de tickets, nomes de repositórios ou números de encomendas."
+    "message": "Crie regras regex para extrair automaticamente só a parte da URL que você precisa — como IDs de chamados, nomes de repositórios ou números de pedidos."
   },
   "welcomeRegexDemoLabel": {
     "message": "Exemplo: Repositório GitHub"
@@ -96,13 +96,13 @@
     "message": "Escreva o padrão"
   },
   "welcomeRegexStep2Desc": {
-    "message": "Defina um regex para capturar a parte que deseja."
+    "message": "Defina um regex para capturar a parte que você quer."
   },
   "welcomeRegexStep3Title": {
-    "message": "Copie de forma inteligente"
+    "message": "Copie mais rápido"
   },
   "welcomeRegexStep3Desc": {
-    "message": "O atalho agora copia apenas o valor extraído."
+    "message": "O atalho agora copia só o valor extraído."
   },
   "welcomeRegexCta": {
     "message": "Configurar Regras"
@@ -120,10 +120,10 @@
     "message": "Apoie o projeto"
   },
   "donateCta": {
-    "message": "A gostar do Fast Copy?"
+    "message": "Curtindo o Fast Copy?"
   },
   "donateDesc": {
-    "message": "Esta extensão é gratuita e de código aberto. Se poupa tempo todos os dias, considere pagar um café!"
+    "message": "Esta extensão é gratuita e de código aberto. Se ela economiza seu tempo todo dia, considere me pagar um café!"
   },
   "donateBtn": {
     "message": "Pagar um café ☕"
@@ -153,19 +153,19 @@
     "message": "Rótulo"
   },
   "rulesLabelPlaceholder": {
-    "message": "ex: Utilizador/Repo"
+    "message": "ex: Usuário/Repo"
   },
   "addRule": {
     "message": "Adicionar Regra"
   },
   "saveRule": {
-    "message": "Guardar"
+    "message": "Salvar"
   },
   "cancelEdit": {
     "message": "Cancelar"
   },
   "deleteRule": {
-    "message": "Eliminar"
+    "message": "Excluir"
   },
   "editRule": {
     "message": "Editar"
@@ -174,7 +174,7 @@
     "message": "Testar"
   },
   "testUrlPlaceholder": {
-    "message": "Cole uma URL para testar o seu regex..."
+    "message": "Cole uma URL para testar seu regex..."
   },
   "testResult": {
     "message": "Resultado:"
@@ -204,7 +204,7 @@
     "message": "Regra atualizada!"
   },
   "toastRuleDeleted": {
-    "message": "Regra eliminada"
+    "message": "Regra excluída"
   },
   "fieldRequired": {
     "message": "Este campo é obrigatório"
@@ -228,45 +228,60 @@
     "message": "Regras de URL"
   },
   "onboardStep4Label": {
-    "message": "Concluído"
+    "message": "Pronto"
   },
   "onboardShortcutEyebrow": {
-    "message": "Passo 2"
+    "message": "Etapa 2"
   },
   "onboardShortcutTitle": {
-    "message": "O seu atalho está pronto"
+    "message": "Seu atalho está pronto"
   },
   "onboardShortcutDesc": {
-    "message": "Prima esta combinação em qualquer página para copiar o URL instantaneamente para a área de transferência."
+    "message": "Pressione essa combinação em qualquer página para copiar a URL instantaneamente para sua área de transferência."
   },
   "onboardRegexEyebrow": {
-    "message": "Passo 3"
+    "message": "Etapa 3"
   },
   "onboardRegexTitle": {
     "message": "Extração Inteligente de URLs"
   },
   "onboardRegexDesc": {
-    "message": "Crie regras regex para extrair automaticamente apenas a parte do URL que precisa — como nomes de repositórios, IDs de tickets ou números de encomendas."
+    "message": "Crie regras regex para extrair automaticamente só a parte da URL que você precisa — como nomes de repositórios, IDs de chamados ou números de pedidos."
   },
   "onboardQuickRuleTitle": {
-    "message": "Adicione a sua primeira regra (opcional)"
+    "message": "Adicione sua primeira regra (opcional)"
   },
   "onboardSkipRule": {
-    "message": "Saltar por agora"
+    "message": "Pular por agora"
   },
   "onboardRuleSaved": {
-    "message": "Regra guardada! Pode gerir as suas regras a qualquer momento nas opções da extensão."
+    "message": "Regra salva! Você pode gerenciar suas regras a qualquer momento nas opções da extensão."
   },
   "onboardAllSetTitle": {
     "message": "Tudo pronto!"
   },
   "onboardAllSetDesc": {
-    "message": "O Fast Copy está pronto a usar. Prima o atalho em qualquer separador e o URL é copiado de imediato."
+    "message": "O Fast Copy está pronto para usar. Pressione o atalho em qualquer aba e a URL é copiada na hora."
   },
   "onboardBack": {
     "message": "Voltar"
   },
   "onboardNext": {
     "message": "Avançar"
+  },
+  "historyTitle": {
+    "message": "Histórico de Cópias"
+  },
+  "historyClear": {
+    "message": "Limpar"
+  },
+  "historyEmpty": {
+    "message": "Nenhuma cópia ainda. Use o atalho para copiar uma URL e ela aparecerá aqui."
+  },
+  "historyJustNow": {
+    "message": "Agora"
+  },
+  "historyCloseHint": {
+    "message": "↑↓ navegar · Enter para selecionar"
   }
 }
