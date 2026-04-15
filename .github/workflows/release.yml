@@ -1,4 +1,4 @@
-name: Release to Stores
+name: Release
 
 on:
   push:
@@ -28,9 +28,6 @@ jobs:
       - name: Zip Firefox
         run: cd dist-firefox && zip -r ../fast-copy-firefox.zip . && cd ..
 
-      - name: Zip Source Code
-        run: zip -r fast-copy-source.zip . -x 'node_modules/*' 'dist-chrome/*' 'dist-firefox/*' '.git/*' '*.zip' '.env'
-
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
@@ -38,21 +35,3 @@ jobs:
             fast-copy-chrome.zip
             fast-copy-firefox.zip
           generate_release_notes: true
-
-      - name: Publish to Chrome Web Store
-        uses: mnao305/chrome-extension-upload@v5.0.0
-        with:
-          file-path: fast-copy-chrome.zip
-          extension-id: ${{ secrets.CHROME_EXTENSION_ID }}
-          client-id: ${{ secrets.CHROME_CLIENT_ID }}
-          client-secret: ${{ secrets.CHROME_CLIENT_SECRET }}
-          refresh-token: ${{ secrets.CHROME_REFRESH_TOKEN }}
-
-      - name: Publish to Firefox Add-ons (AMO)
-        uses: wdzeng/firefox-addon@v1
-        with:
-          addon-guid: fast-copy@lucaslourencoo
-          xpi-path: fast-copy-firefox.zip
-          source-path: fast-copy-source.zip
-          jwt-issuer: ${{ secrets.FIREFOX_JWT_ISSUER }}
-          jwt-secret: ${{ secrets.FIREFOX_JWT_SECRET }}
