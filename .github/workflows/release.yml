@@ -28,6 +28,9 @@ jobs:
       - name: Zip Firefox
         run: cd dist-firefox && zip -r ../fast-copy-firefox.zip . && cd ..
 
+      - name: Zip Source Code
+        run: zip -r fast-copy-source.zip . -x 'node_modules/*' 'dist-chrome/*' 'dist-firefox/*' '.git/*' '*.zip' '.env'
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
@@ -44,3 +47,12 @@ jobs:
           client-id: ${{ secrets.CHROME_CLIENT_ID }}
           client-secret: ${{ secrets.CHROME_CLIENT_SECRET }}
           refresh-token: ${{ secrets.CHROME_REFRESH_TOKEN }}
+
+      - name: Publish to Firefox Add-ons (AMO)
+        uses: wdzeng/firefox-addon@v1
+        with:
+          addon-guid: fast-copy@lucaslourencoo
+          xpi-path: fast-copy-firefox.zip
+          source-path: fast-copy-source.zip
+          jwt-issuer: ${{ secrets.FIREFOX_JWT_ISSUER }}
+          jwt-secret: ${{ secrets.FIREFOX_JWT_SECRET }}
