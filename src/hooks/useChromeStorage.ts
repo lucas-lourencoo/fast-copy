@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from "react";
-import { browser } from "../browser-api";
+import { browser } from "../lib/browser-api";
 
 export function useChromeStorage<T>(
   key: string,

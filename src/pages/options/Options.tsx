@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
-import { browser } from "../../browser-api";
+import { browser } from "../../lib/browser-api";
 import { useChromeI18n } from "../../hooks/useChromeI18n";
-import type { UrlRule } from "../../shared";
+import type { UrlRule } from "../../lib/shared";
 import "../../styles/global.css";
 
 export function Options() {

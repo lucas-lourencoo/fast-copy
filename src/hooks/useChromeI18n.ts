@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { browser } from "../browser-api";
+import { browser } from "../lib/browser-api";
 
 export function useBrowserI18n(key: string, fallback: string): string {
   const [value, setValue] = useState(fallback);

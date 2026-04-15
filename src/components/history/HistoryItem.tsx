@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
-import { browser } from "../../browser-api";
-import type { CopyHistoryEntry } from "../../shared";
+import { browser } from "../../lib/browser-api";
+import type { CopyHistoryEntry } from "../../lib/shared";
 
 interface HistoryItemProps {
   entry: CopyHistoryEntry;

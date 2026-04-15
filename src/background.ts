@@ -1,11 +1,11 @@
-import { browser } from "./browser-api";
+import { browser } from "./lib/browser-api";
 import {
   HISTORY_KEY,
   HISTORY_MAX,
   applyUrlRules,
   type CopyHistoryEntry,
   type UrlRule,
-} from "./shared";
+} from "./lib/shared";
 
 browser.runtime.onInstalled.addListener((details) => {
   if (details.reason === "install") {

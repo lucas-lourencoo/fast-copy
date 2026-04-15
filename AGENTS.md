@@ -8,13 +8,15 @@ Extensão cross-browser (Chrome + Firefox, Manifest V3) que copia a URL da aba a
 
 ```
 src/
-  browser-api.ts     → Camada de abstração: exporta `browser` via webextension-polyfill
   background.ts      → Service worker: escuta comandos, aplica regras regex, executa cópia, gerencia histórico
-  popup.html/ts      → UI do popup (exibe URL, preview do regex match, botão de cópia)
-  options.html/ts    → Página de opções: CRUD de regras regex por domínio
-  welcome.html/ts    → Página de boas-vindas exibida na instalação
-  history.html/ts    → Página do histórico de cópias (últimas 10 URLs)
-  styles/            → CSS modular por página
+  lib/               → Módulos utilitários compartilhados
+    browser-api.ts   → Camada de abstração: exporta `browser` via webextension-polyfill
+    shared.ts        → Tipos e funções compartilhadas (regras, histórico)
+  components/        → Componentes React reutilizáveis
+  hooks/             → Custom hooks React (i18n, storage)
+  pages/             → Páginas da extensão (popup, options, welcome, history)
+  styles/            → CSS global
+  env.d.ts           → Declarações de tipos do ambiente Vite
 public/
   _locales/          → i18n (en, pt, pt_BR)
   icons/             → Ícones da extensão (16, 48, 128)

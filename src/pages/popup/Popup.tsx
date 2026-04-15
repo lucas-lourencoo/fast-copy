@@ -4,7 +4,7 @@ import {
   HISTORY_KEY,
   HISTORY_MAX,
   type CopyHistoryEntry,
-} from "../../shared";
+} from "../../lib/shared";
 import { useChromeI18n } from "../../hooks/useChromeI18n";
 import "../../styles/global.css";
 

@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
-import { browser } from "../../browser-api";
-import { HISTORY_KEY, type CopyHistoryEntry } from "../../shared";
+import { browser } from "../../lib/browser-api";
+import { HISTORY_KEY, type CopyHistoryEntry } from "../../lib/shared";
 import { HistoryHeader } from "../../components/history/HistoryHeader";
 import { HistoryItem } from "../../components/history/HistoryItem";
 import { EmptyState } from "../../components/history/EmptyState";
