@@ -48,8 +48,15 @@ export function Welcome() {
   const [saveButtonLabel, setSaveButtonLabel] = useState<"save" | "next">(
     "save",
   );
-  const [shortcutKeys, setShortcutKeys] = useState(["Ctrl", "Shift", "U"]);
-  const [historyKeys, setHistoryKeys] = useState(["Ctrl", "Shift", "Y"]);
+  const isMac =
+    typeof navigator !== "undefined" &&
+    /Mac|iPhone|iPad/.test(navigator.platform);
+  const [shortcutKeys, setShortcutKeys] = useState(
+    isMac ? ["⌘", "Shift", "U"] : ["Ctrl", "Shift", "U"],
+  );
+  const [historyKeys, setHistoryKeys] = useState(
+    isMac ? ["⌘", "Shift", "Y"] : ["Ctrl", "Shift", "Y"],
+  );
 
   const welcomeBadge = useChromeI18n("welcomeBadge", "Installation complete");
   const welcomeTitle = useChromeI18n(
@@ -141,14 +148,40 @@ export function Welcome() {
       !chrome.commands.getAll
     )
       return;
+
+    const parseShortcut = (raw: string): string[] => {
+      const symbolMap: Record<string, string> = {
+        "⌘": "⌘",
+        "⇧": "Shift",
+        "⌥": "Alt",
+        "⌃": "Ctrl",
+        "↩": "Enter",
+      };
+
+      if (/[⌘⇧⌥⌃]/.test(raw)) {
+        const keys: string[] = [];
+        let remaining = raw;
+        for (const [sym, label] of Object.entries(symbolMap)) {
+          if (remaining.includes(sym)) {
+            keys.push(label);
+            remaining = remaining.replace(sym, "");
+          }
+        }
+        if (remaining.trim()) keys.push(remaining.trim());
+        return keys;
+      }
+
+      return raw.split("+").map((k) => k.trim());
+    };
+
     chrome.commands.getAll((commands) => {
       const copyCmd = commands.find((c) => c.name === "copy-url");
       if (copyCmd?.shortcut) {
-        setShortcutKeys(copyCmd.shortcut.split("+").map((k) => k.trim()));
+        setShortcutKeys(parseShortcut(copyCmd.shortcut));
       }
       const histCmd = commands.find((c) => c.name === "show-history");
       if (histCmd?.shortcut) {
-        setHistoryKeys(histCmd.shortcut.split("+").map((k) => k.trim()));
+        setHistoryKeys(parseShortcut(histCmd.shortcut));
       }
     });
   }, []);

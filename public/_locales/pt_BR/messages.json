@@ -276,7 +276,7 @@
     "message": "Avançar"
   },
   "historyTitle": {
-    "message": "Histórico de Cópias"
+    "message": "Histórico"
   },
   "historyClear": {
     "message": "Limpar"
@@ -291,7 +291,7 @@
     "message": "↑↓ navegar · Enter para selecionar"
   },
   "onboardHistoryTitle": {
-    "message": "Histórico de Cópias"
+    "message": "Histórico"
   },
   "onboardHistoryDesc": {
     "message": "Acesse seus últimos 10 links copiados na hora. Navegue com as setas, pressione Enter para selecionar e colar."

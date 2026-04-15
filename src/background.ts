@@ -45,6 +45,26 @@ browser.commands.onCommand.addListener(async (command) => {
     return;
   }
 
+  await browser.scripting.executeScript({
+    target: { tabId: tab.id },
+    func: () => {
+      if ((window as any).__fastCopyMouseTracking) return;
+      let lastX = 0;
+      let lastY = 0;
+      document.addEventListener(
+        "mousemove",
+        (e: MouseEvent) => {
+          lastX = e.clientX;
+          lastY = e.clientY;
+        },
+        true,
+      );
+      (window as any).__fastCopyGetMousePos = () => ({ x: lastX, y: lastY });
+      (window as any).__fastCopyMouseTracking = true;
+    },
+    ...({ world: "MAIN" } as any),
+  });
+
   if (command === "copy-url") {
     await handleCopyUrl(tab);
   }
@@ -73,10 +93,34 @@ browser.commands.onCommand.addListener(async (command) => {
       escHint: "Esc",
     };
 
+    const posResult = await browser.scripting.executeScript({
+      target: { tabId: tab.id },
+      func: () => {
+        const getter = (window as any).__fastCopyGetMousePos;
+        if (getter) return getter() as { x: number; y: number };
+        const hovered = document.querySelectorAll(":hover");
+        if (hovered.length > 0) {
+          const el = hovered[hovered.length - 1];
+          const rect = el.getBoundingClientRect();
+          return {
+            x: rect.left + rect.width / 2,
+            y: rect.top + rect.height / 2,
+          };
+        }
+        return { x: window.innerWidth / 2, y: window.innerHeight / 3 };
+      },
+      ...({ world: "MAIN" } as any),
+    });
+
+    const mousePos = (posResult[0]?.result as { x: number; y: number }) || {
+      x: 400,
+      y: 300,
+    };
+
     await browser.scripting.executeScript({
       target: { tabId: tab.id },
       func: showHistoryOverlay,
-      args: [copyHistory, i18n],
+      args: [copyHistory, i18n, mousePos],
     });
   }
 });
@@ -166,6 +210,7 @@ function showHistoryOverlay(
     closeHint: string;
     escHint: string;
   },
+  mousePos: { x: number; y: number },
 ): void {
   const EXISTING = document.getElementById("fast-copy-history-root");
   if (EXISTING) {
@@ -199,31 +244,11 @@ function showHistoryOverlay(
     focusedEl.blur();
   }
 
-  const mousePos = (() => {
-    const stored = (window as any).__fastCopyMousePos;
-    if (stored) return stored as { x: number; y: number };
-
-    const hovered = document.querySelectorAll(":hover");
-    if (hovered.length > 0) {
-      const el = hovered[hovered.length - 1];
-      const rect = el.getBoundingClientRect();
-      return { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 };
-    }
-
-    return { x: window.innerWidth / 2, y: window.innerHeight / 3 };
-  })();
-
-  if (!(window as any).__fastCopyMouseTracking) {
-    document.addEventListener("mousemove", (e: MouseEvent) => {
-      (window as any).__fastCopyMousePos = { x: e.clientX, y: e.clientY };
-    });
-    (window as any).__fastCopyMouseTracking = true;
-  }
-
   const root = document.createElement("div");
   root.id = "fast-copy-history-root";
+  root.setAttribute("tabindex", "-1");
   root.style.cssText =
-    "all:initial;position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:2147483647;pointer-events:auto;";
+    "all:initial;position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:2147483647;pointer-events:auto;outline:none;";
 
   const shadow = root.attachShadow({ mode: "open" });
 
@@ -249,7 +274,7 @@ function showHistoryOverlay(
 
     .backdrop {
       position: fixed; inset: 0;
-      background: rgba(0,0,0,0.15);
+      background: rgba(0,0,0,0.06);
       animation: fadeIn 0.15s ease;
     }
 
@@ -257,6 +282,10 @@ function showHistoryOverlay(
     @keyframes slideIn {
       from { opacity: 0; transform: scale(0.92) translateY(-6px); }
       to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    @keyframes itemSlideIn {
+      from { opacity: 0; transform: translateX(-8px); }
+      to { opacity: 1; transform: translateX(0); }
     }
 
     .panel {
@@ -268,7 +297,7 @@ function showHistoryOverlay(
       border-radius: 12px;
       overflow: hidden;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-      animation: slideIn 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+      animation: slideIn 0.22s cubic-bezier(0.16, 1, 0.3, 1);
       box-shadow: 0 20px 60px rgba(0,0,0,0.28), 0 4px 16px rgba(0,0,0,0.15), 0 0 0 1px ${isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.06)"};
       display: flex;
       flex-direction: column;
@@ -341,28 +370,12 @@ function showHistoryOverlay(
       text-align: left;
       color: inherit;
       font-family: inherit;
+      opacity: 0;
+      animation: itemSlideIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
     .item:hover, .item.item-active { background: ${isDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.04)"}; }
     .item:active { background: ${isDark ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.07)"}; }
-
-    .item.item-active .item-index {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      opacity: 1;
-    }
-
-    .item-index {
-      font-size: 10px;
-      font-weight: 700;
-      width: 18px; height: 18px;
-      border-radius: 4px;
-      background: ${isDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.05)"};
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-      opacity: 0.5;
-      transition: all 0.12s;
-    }
 
     .item-content {
       flex: 1; min-width: 0;
@@ -473,8 +486,7 @@ function showHistoryOverlay(
           : "";
 
         return `
-        <button class="item" data-idx="${idx}" title="${escapeHtml(entry.copiedText)}">
-          <span class="item-index">${idx + 1}</span>
+        <button class="item" data-idx="${idx}" title="${escapeHtml(entry.copiedText)}" style="animation-delay: ${idx * 35}ms">
           <div class="item-content">
             <div class="item-text">${escapeHtml(text)}</div>
             <div class="item-meta">${escapeHtml(source)} · ${time}</div>
@@ -529,6 +541,7 @@ function showHistoryOverlay(
 
   shadow.innerHTML = html;
   document.body.appendChild(root);
+  root.focus();
 
   const inertedElements: HTMLElement[] = [];
   document.body
@@ -683,13 +696,6 @@ function copyAndNotify(
   toastMsg: string,
   isPartial: boolean,
 ): void {
-  if (!(window as any).__fastCopyMouseTracking) {
-    document.addEventListener("mousemove", (e: MouseEvent) => {
-      (window as any).__fastCopyMousePos = { x: e.clientX, y: e.clientY };
-    });
-    (window as any).__fastCopyMouseTracking = true;
-  }
-
   function showToast(): void {
     const existing = document.getElementById("fast-copy-toast");
     if (existing) existing.remove();
