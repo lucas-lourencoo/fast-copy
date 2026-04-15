@@ -1,3 +1,4 @@
+import { browser } from "./browser-api";
 import {
   HISTORY_KEY,
   HISTORY_MAX,
@@ -6,41 +7,38 @@ import {
   type UrlRule,
 } from "./shared";
 
-chrome.runtime.onInstalled.addListener((details) => {
+browser.runtime.onInstalled.addListener((details) => {
   if (details.reason === "install") {
-    chrome.tabs.create({ url: chrome.runtime.getURL("welcome.html") });
+    browser.tabs.create({ url: browser.runtime.getURL("welcome.html") });
   }
 });
 
-chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
-  console.log("[Fast Copy] onMessage received:", message.type, message);
-  if (message.type === "save-history") {
-    saveToHistoryDirect(message.url, message.copiedText, message.isPartial)
+browser.runtime.onMessage.addListener((message: unknown) => {
+  const msg = message as {
+    type: string;
+    url: string;
+    copiedText: string;
+    isPartial: boolean;
+  };
+  console.log("[Fast Copy] onMessage received:", msg.type, msg);
+  if (msg.type === "save-history") {
+    return saveToHistoryDirect(msg.url, msg.copiedText, msg.isPartial)
       .then(() => {
         console.log("[Fast Copy] onMessage save-history: OK");
-        sendResponse({ ok: true });
+        return { ok: true };
       })
       .catch((err) => {
         console.error("[Fast Copy] onMessage save-history: FAIL", err);
-        sendResponse({ ok: false });
+        return { ok: false };
       });
-    return true;
   }
 });
 
-chrome.commands.onCommand.addListener(async (command, callbackTab) => {
-  console.log(
-    "[Fast Copy] onCommand fired:",
-    command,
-    "tab:",
-    callbackTab?.id,
-    "url:",
-    callbackTab?.url,
-  );
+browser.commands.onCommand.addListener(async (command) => {
+  console.log("[Fast Copy] onCommand fired:", command);
 
-  const tab = callbackTab?.id
-    ? callbackTab
-    : (await chrome.tabs.query({ active: true, currentWindow: true }))[0];
+  const tabs = await browser.tabs.query({ active: true, currentWindow: true });
+  const tab = tabs[0];
 
   if (!tab?.id) {
     console.warn("[Fast Copy] Could not resolve active tab");
@@ -52,7 +50,7 @@ chrome.commands.onCommand.addListener(async (command, callbackTab) => {
   }
 
   if (command === "show-history") {
-    const result = await chrome.storage.local.get([HISTORY_KEY]);
+    const result = await browser.storage.local.get(HISTORY_KEY);
     const copyHistory: CopyHistoryEntry[] =
       (result[HISTORY_KEY] as CopyHistoryEntry[] | undefined) || [];
     console.log(
@@ -62,20 +60,20 @@ chrome.commands.onCommand.addListener(async (command, callbackTab) => {
     );
 
     const i18n = {
-      title: chrome.i18n.getMessage("historyTitle") || "Copy History",
-      clear: chrome.i18n.getMessage("historyClear") || "Clear",
+      title: browser.i18n.getMessage("historyTitle") || "Copy History",
+      clear: browser.i18n.getMessage("historyClear") || "Clear",
       empty:
-        chrome.i18n.getMessage("historyEmpty") ||
+        browser.i18n.getMessage("historyEmpty") ||
         "No copies yet. Use the shortcut to copy a URL and it will appear here.",
-      justNow: chrome.i18n.getMessage("historyJustNow") || "Just now",
-      copied: chrome.i18n.getMessage("popupCopied") || "Copied!",
+      justNow: browser.i18n.getMessage("historyJustNow") || "Just now",
+      copied: browser.i18n.getMessage("popupCopied") || "Copied!",
       closeHint:
-        chrome.i18n.getMessage("historyCloseHint") ||
+        browser.i18n.getMessage("historyCloseHint") ||
         "↑↓ navigate · Enter to select",
       escHint: "Esc",
     };
 
-    await chrome.scripting.executeScript({
+    await browser.scripting.executeScript({
       target: { tabId: tab.id },
       func: showHistoryOverlay,
       args: [copyHistory, i18n],
@@ -88,7 +86,7 @@ async function saveToHistoryDirect(
   copiedText: string,
   isPartial: boolean,
 ): Promise<void> {
-  const result = await chrome.storage.local.get([HISTORY_KEY]);
+  const result = await browser.storage.local.get(HISTORY_KEY);
   const copyHistory: CopyHistoryEntry[] =
     (result[HISTORY_KEY] as CopyHistoryEntry[] | undefined) || [];
 
@@ -105,10 +103,10 @@ async function saveToHistoryDirect(
     copyHistory.length = HISTORY_MAX;
   }
 
-  await chrome.storage.local.set({ [HISTORY_KEY]: copyHistory });
+  await browser.storage.local.set({ [HISTORY_KEY]: copyHistory });
 }
 
-async function handleCopyUrl(tab: chrome.tabs.Tab): Promise<void> {
+async function handleCopyUrl(tab: browser.Tabs.Tab): Promise<void> {
   try {
     if (!tab?.url) {
       console.warn(
@@ -124,9 +122,11 @@ async function handleCopyUrl(tab: chrome.tabs.Tab): Promise<void> {
 
     let toastMessage: string;
     if (isPartial) {
-      toastMessage = chrome.i18n.getMessage("toastMessagePartial");
+      toastMessage = browser.i18n.getMessage("toastMessagePartial");
     } else {
-      const { urlRules = [] } = (await chrome.storage.sync.get("urlRules")) as {
+      const { urlRules = [] } = (await browser.storage.sync.get(
+        "urlRules",
+      )) as {
         urlRules: UrlRule[];
       };
       const hostname = new URL(tab.url).hostname;
@@ -134,13 +134,13 @@ async function handleCopyUrl(tab: chrome.tabs.Tab): Promise<void> {
         (r) => r.enabled && hostname.includes(r.domain),
       );
       if (hasRulesForDomain) {
-        toastMessage = chrome.i18n.getMessage("toastMessageFallback");
+        toastMessage = browser.i18n.getMessage("toastMessageFallback");
       } else {
-        toastMessage = chrome.i18n.getMessage("toastMessage");
+        toastMessage = browser.i18n.getMessage("toastMessage");
       }
     }
 
-    await chrome.scripting.executeScript({
+    await browser.scripting.executeScript({
       target: { tabId: tab.id! },
       func: copyAndNotify,
       args: [text, toastMessage, isPartial],
@@ -149,7 +149,6 @@ async function handleCopyUrl(tab: chrome.tabs.Tab): Promise<void> {
     console.error("Fast Copy: Error copying URL:", error);
   }
 }
-
 
 function showHistoryOverlay(
   entries: {
@@ -532,12 +531,14 @@ function showHistoryOverlay(
   document.body.appendChild(root);
 
   const inertedElements: HTMLElement[] = [];
-  document.body.querySelectorAll<HTMLElement>(":scope > *:not(#fast-copy-history-root)").forEach((el) => {
-    if (!el.hasAttribute("inert")) {
-      el.setAttribute("inert", "");
-      inertedElements.push(el);
-    }
-  });
+  document.body
+    .querySelectorAll<HTMLElement>(":scope > *:not(#fast-copy-history-root)")
+    .forEach((el) => {
+      if (!el.hasAttribute("inert")) {
+        el.setAttribute("inert", "");
+        inertedElements.push(el);
+      }
+    });
 
   const removeInert = () => {
     inertedElements.forEach((el) => el.removeAttribute("inert"));

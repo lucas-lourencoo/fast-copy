@@ -1,18 +1,23 @@
-export function useChromeI18n(key: string, fallback?: string): string {
-  if (typeof chrome !== "undefined" && chrome.i18n) {
-    return chrome.i18n.getMessage(key) || fallback || key;
-  }
-  return fallback || key;
+import { useState, useEffect } from "react";
+import { browser } from "../browser-api";
+
+export function useBrowserI18n(key: string, fallback: string): string {
+  const [value, setValue] = useState(fallback);
+
+  useEffect(() => {
+    try {
+      const msg = browser.i18n.getMessage(key);
+      if (msg) setValue(msg);
+    } catch {
+      setValue(fallback);
+    }
+  }, [key, fallback]);
+
+  return value;
 }
 
+export { useBrowserI18n as useChromeI18n };
+
 export function applyI18nToRef(
-  ref: React.RefObject<HTMLElement | null>,
-): void {
-  if (typeof chrome === "undefined" || !chrome.i18n) return;
-  const el = ref.current;
-  if (!el) return;
-  el.querySelectorAll<HTMLElement>("[data-i18n]").forEach((node) => {
-    const msg = chrome.i18n.getMessage(node.dataset.i18n!);
-    if (msg) node.textContent = msg;
-  });
-}
+  _ref: React.RefObject<HTMLElement | null>,
+): void {}

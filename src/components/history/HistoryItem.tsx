@@ -1,4 +1,5 @@
 import { useState, useCallback } from "react";
+import { browser } from "../../browser-api";
 import type { CopyHistoryEntry } from "../../shared";
 
 interface HistoryItemProps {
@@ -10,10 +11,12 @@ function formatTimeAgo(ts: number): string {
   const diff = Date.now() - ts;
   const seconds = Math.floor(diff / 1000);
   if (seconds < 60) {
-    if (typeof chrome !== "undefined" && chrome.i18n) {
-      return chrome.i18n.getMessage("historyJustNow") || "Just now";
+    try {
+      const msg = browser.i18n.getMessage("historyJustNow");
+      return msg || "Just now";
+    } catch {
+      return "Just now";
     }
-    return "Just now";
   }
   const minutes = Math.floor(seconds / 60);
   if (minutes < 60) return `${minutes}m`;

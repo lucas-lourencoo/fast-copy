@@ -4,9 +4,10 @@
 
 <img src="public/icons/icon128.png" width="80" alt="Fast Copy Icon" />
 
-**A minimalist Chrome extension to copy URLs via keyboard shortcut.**
+**A minimalist browser extension to copy URLs via keyboard shortcut.**
 
 [![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-Install-4285F4?logo=googlechrome&logoColor=white)](https://chromewebstore.google.com/detail/bbbgfepehfgaopbfeccedcmcfijofbfn)
+[![Firefox Add-ons](https://img.shields.io/badge/Firefox%20Add--ons-Install-FF7139?logo=firefoxbrowser&logoColor=white)](https://addons.mozilla.org/firefox/addon/fast-copy/)
 [![Manifest V3](https://img.shields.io/badge/Manifest-V3-success.svg)](#)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
@@ -14,7 +15,7 @@
 
 ## 📌 What is it?
 
-**Fast Copy** is an incredibly lightweight Chrome extension that lets you copy the current tab's URL directly to your clipboard with a simple keyboard shortcut — no need to click the address bar.
+**Fast Copy** is an incredibly lightweight browser extension (Chrome & Firefox) that lets you copy the current tab's URL directly to your clipboard with a simple keyboard shortcut — no need to click the address bar.
 
 When you copy, the extension displays a sleek toast notification ("Link Copied!") at the top of the page.
 
@@ -30,9 +31,13 @@ When you copy, the extension displays a sleek toast notification ("Link Copied!"
 
 ## 🚀 Installation
 
-### Chrome Web Store (Recommended)
+### Chrome Web Store
 
 Install directly from the [Chrome Web Store](https://chromewebstore.google.com/detail/bbbgfepehfgaopbfeccedcmcfijofbfn).
+
+### Firefox Add-ons (AMO)
+
+Install directly from [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/fast-copy/).
 
 ### Developer Mode
 
@@ -44,11 +49,11 @@ Install directly from the [Chrome Web Store](https://chromewebstore.google.com/d
 2. Install dependencies and build:
    ```bash
    npm install
-   npm run build
+   npm run build:chrome   # Chrome build → dist-chrome/
+   npm run build:firefox  # Firefox build → dist-firefox/
    ```
-3. Open `chrome://extensions/`
-4. Enable **Developer Mode** (top right corner).
-5. Click **Load unpacked** and select the `dist/` folder.
+3. **Chrome:** Open `chrome://extensions/`, enable **Developer Mode**, click **Load unpacked** and select `dist-chrome/`.
+4. **Firefox:** Open `about:debugging#/runtime/this-firefox`, click **Load Temporary Add-on** and select any file inside `dist-firefox/`.
 
 ## ⌨️ How to Use
 
@@ -70,25 +75,27 @@ Opens a floating overlay on the current page showing your last 10 copied URLs. U
 
 You can define rules to copy only a specific part of the URL, matched by domain + regex:
 
-1. Click the ⚙️ icon in the popup (or access options via `chrome://extensions`)
+1. Click the ⚙️ icon in the popup (or access options via browser extension settings)
 2. Add a rule with a domain (e.g., `github.com`) and a regex pattern with a capture group (e.g., `github\.com\/([^\/]+\/[^\/]+)`)
 3. When you copy a matching URL, only the first capture group is copied
 
-If shortcuts conflict with another extension, customize them at `chrome://extensions/shortcuts`.
+If shortcuts conflict with another extension, customize them at `chrome://extensions/shortcuts` (Chrome) or `about:addons` → gear icon → **Manage Extension Shortcuts** (Firefox).
 
 ## 🛠 Tech Stack
 
-- **TypeScript** compiled by **Vite** (output in `dist/`)
-- Chrome Extensions API (Manifest V3)
+- **TypeScript** + **React** compiled by **Vite**
+- Cross-browser via `webextension-polyfill` (Chrome & Firefox)
+- WebExtensions API (Manifest V3)
 - Glassmorphic CSS design
-- `chrome.i18n` for localization (`public/_locales/`)
+- `browser.i18n` for localization (`public/_locales/`)
 
 ### Development
 
 ```bash
-npm run dev        # Watch mode (auto-rebuild on change)
-npm run build      # Production build (typecheck + bundle)
-npm run typecheck  # TypeScript type checking only
+npm run dev            # Watch mode (Chrome, auto-rebuild on change)
+npm run build:chrome   # Production build for Chrome → dist-chrome/
+npm run build:firefox  # Production build for Firefox → dist-firefox/
+npm run typecheck      # TypeScript type checking only
 ```
 
 ## 🔒 Privacy

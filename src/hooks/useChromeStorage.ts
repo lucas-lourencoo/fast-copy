@@ -1,52 +1,72 @@
-import { useState, useEffect, useCallback } from "react";
-
-type StorageArea = "sync" | "local";
+import { useState, useEffect, useCallback, useRef } from "react";
+import { browser } from "../browser-api";
 
 export function useChromeStorage<T>(
   key: string,
   defaultValue: T,
-  area: StorageArea = "sync",
+  area: "sync" | "local" = "sync",
 ): [T, (value: T) => Promise<void>, boolean] {
-  const [data, setData] = useState<T>(defaultValue);
+  const [value, setValue] = useState<T>(defaultValue);
   const [loading, setLoading] = useState(true);
+  const mountedRef = useRef(true);
 
   useEffect(() => {
-    if (typeof chrome === "undefined" || !chrome.storage) {
-      setLoading(false);
-      return;
-    }
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+    };
+  }, []);
 
-    const storage = area === "sync" ? chrome.storage.sync : chrome.storage.local;
-
-    storage.get(key, (result) => {
-      if (result[key] !== undefined) {
-        setData(result[key] as T);
+  useEffect(() => {
+    const load = async () => {
+      try {
+        const storageArea =
+          area === "local" ? browser.storage.local : browser.storage.sync;
+        const result = await storageArea.get(key);
+        if (mountedRef.current) {
+          setValue(
+            result[key] !== undefined ? (result[key] as T) : defaultValue,
+          );
+          setLoading(false);
+        }
+      } catch {
+        if (mountedRef.current) setLoading(false);
       }
-      setLoading(false);
-    });
+    };
+    load();
+  }, [key, area, defaultValue]);
 
-    const listener = (
-      changes: { [key: string]: chrome.storage.StorageChange },
+  useEffect(() => {
+    const handler = (
+      changes: Record<string, { oldValue?: unknown; newValue?: unknown }>,
       areaName: string,
     ) => {
-      if (areaName === area && changes[key]) {
-        setData(changes[key].newValue as T);
+      if (areaName === area && key in changes && mountedRef.current) {
+        setValue(
+          changes[key].newValue !== undefined
+            ? (changes[key].newValue as T)
+            : defaultValue,
+        );
       }
     };
 
-    chrome.storage.onChanged.addListener(listener);
-    return () => chrome.storage.onChanged.removeListener(listener);
-  }, [key, area]);
+    browser.storage.onChanged.addListener(handler);
+    return () => browser.storage.onChanged.removeListener(handler);
+  }, [key, area, defaultValue]);
 
-  const setValue = useCallback(
-    async (value: T) => {
-      if (typeof chrome === "undefined" || !chrome.storage) return;
-      const storage = area === "sync" ? chrome.storage.sync : chrome.storage.local;
-      await storage.set({ [key]: value });
-      setData(value);
+  const setStorage = useCallback(
+    async (newValue: T) => {
+      try {
+        const storageArea =
+          area === "local" ? browser.storage.local : browser.storage.sync;
+        await storageArea.set({ [key]: newValue });
+        if (mountedRef.current) setValue(newValue);
+      } catch (err) {
+        console.error("Fast Copy: Error saving to storage:", err);
+      }
     },
     [key, area],
   );
 
-  return [data, setValue, loading];
+  return [value, setStorage, loading];
 }

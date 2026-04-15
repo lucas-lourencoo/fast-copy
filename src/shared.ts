@@ -1,3 +1,5 @@
+import { browser } from "./browser-api";
+
 export const HISTORY_KEY = "copyHistory";
 export const HISTORY_MAX = 10;
 
@@ -24,7 +26,7 @@ export interface UrlRuleResult {
 
 export async function applyUrlRules(url: string): Promise<UrlRuleResult> {
   try {
-    const { urlRules = [] } = (await chrome.storage.sync.get("urlRules")) as {
+    const { urlRules = [] } = (await browser.storage.sync.get("urlRules")) as {
       urlRules: UrlRule[];
     };
     if (!urlRules.length) return { text: url, isPartial: false };

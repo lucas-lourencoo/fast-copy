@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
+import { browser } from "../../browser-api";
 import { HISTORY_KEY, type CopyHistoryEntry } from "../../shared";
 import { HistoryHeader } from "../../components/history/HistoryHeader";
 import { HistoryItem } from "../../components/history/HistoryItem";
@@ -10,15 +11,15 @@ export function History() {
   const [loading, setLoading] = useState(true);
 
   const loadHistory = useCallback(async () => {
-    if (typeof chrome === "undefined" || !chrome.storage) {
+    try {
+      const result = await browser.storage.local.get(HISTORY_KEY);
+      const history =
+        (result[HISTORY_KEY] as CopyHistoryEntry[] | undefined) || [];
+      setEntries(history);
       setLoading(false);
-      return;
+    } catch {
+      setLoading(false);
     }
-    const result = await chrome.storage.local.get(HISTORY_KEY);
-    const history =
-      (result[HISTORY_KEY] as CopyHistoryEntry[] | undefined) || [];
-    setEntries(history);
-    setLoading(false);
   }, []);
 
   useEffect(() => {
@@ -26,9 +27,10 @@ export function History() {
   }, [loadHistory]);
 
   const handleClear = useCallback(async () => {
-    if (typeof chrome === "undefined" || !chrome.storage) return;
-    await chrome.storage.local.set({ [HISTORY_KEY]: [] });
-    setEntries([]);
+    try {
+      await browser.storage.local.set({ [HISTORY_KEY]: [] });
+      setEntries([]);
+    } catch {}
   }, []);
 
   if (loading) return null;

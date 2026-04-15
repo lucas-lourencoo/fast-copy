@@ -1,14 +1,16 @@
 import { resolve } from "path";
-import { renameSync, mkdirSync, rmSync, existsSync } from "fs";
+import { renameSync, mkdirSync, rmSync, existsSync, copyFileSync } from "fs";
 import { defineConfig, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
+
+const targetBrowser = process.env.TARGET_BROWSER || "chrome";
 
 function flattenHtmlPlugin(): Plugin {
   return {
     name: "flatten-html",
     closeBundle() {
-      const dist = resolve(__dirname, "dist");
+      const dist = resolve(__dirname, `dist-${targetBrowser}`);
       const pages = resolve(dist, "pages");
       if (!existsSync(pages)) return;
 
@@ -25,11 +27,39 @@ function flattenHtmlPlugin(): Plugin {
   };
 }
 
+function copyManifestPlugin(): Plugin {
+  return {
+    name: "copy-manifest",
+    closeBundle() {
+      const dist = resolve(__dirname, `dist-${targetBrowser}`);
+      const manifestSrc = resolve(
+        __dirname,
+        "public",
+        "manifests",
+        `${targetBrowser}.json`,
+      );
+      const manifestDest = resolve(dist, "manifest.json");
+
+      if (existsSync(manifestSrc)) {
+        copyFileSync(manifestSrc, manifestDest);
+      }
+
+      const leakedManifests = resolve(dist, "manifests");
+      if (existsSync(leakedManifests)) {
+        rmSync(leakedManifests, { recursive: true, force: true });
+      }
+    },
+  };
+}
+
 export default defineConfig({
   root: "src",
-  plugins: [tailwindcss(), react(), flattenHtmlPlugin()],
+  define: {
+    "import.meta.env.VITE_TARGET_BROWSER": JSON.stringify(targetBrowser),
+  },
+  plugins: [tailwindcss(), react(), flattenHtmlPlugin(), copyManifestPlugin()],
   build: {
-    outDir: resolve(__dirname, "dist"),
+    outDir: resolve(__dirname, `dist-${targetBrowser}`),
     emptyOutDir: true,
     rollupOptions: {
       input: {

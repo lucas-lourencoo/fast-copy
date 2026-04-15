@@ -1,4 +1,5 @@
 import { useState, useCallback } from "react";
+import { browser } from "../../browser-api";
 import { useChromeI18n } from "../../hooks/useChromeI18n";
 import type { UrlRule } from "../../shared";
 import "../../styles/global.css";
@@ -85,15 +86,15 @@ export function Options() {
   );
 
   const loadRules = useCallback(async () => {
-    if (typeof chrome === "undefined" || !chrome.storage) {
+    try {
+      const { urlRules = [] } = (await browser.storage.sync.get("urlRules")) as {
+        urlRules: UrlRule[];
+      };
+      setRules(urlRules);
       setLoaded(true);
-      return;
+    } catch {
+      setLoaded(true);
     }
-    const { urlRules = [] } = (await chrome.storage.sync.get("urlRules")) as {
-      urlRules: UrlRule[];
-    };
-    setRules(urlRules);
-    setLoaded(true);
   }, []);
 
   useState(() => {
@@ -101,8 +102,9 @@ export function Options() {
   });
 
   const saveRulesToStorage = useCallback(async (newRules: UrlRule[]) => {
-    if (typeof chrome === "undefined" || !chrome.storage) return;
-    await chrome.storage.sync.set({ urlRules: newRules });
+    try {
+      await browser.storage.sync.set({ urlRules: newRules });
+    } catch {}
   }, []);
 
   const showToast = useCallback((message: string, type = "success") => {
